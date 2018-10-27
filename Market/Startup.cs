@@ -47,7 +47,7 @@ namespace Market
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Administrativa}/{action=Index}/{id?}");
             });
         }
     }
