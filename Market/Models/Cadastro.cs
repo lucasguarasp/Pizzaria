@@ -50,13 +50,11 @@ namespace Market.Models
         [Display(Name = "Status do Cadastro")]
         public bool Status { get; set; }
 
-        public int TipoDeUsuarioId { get; set; } //[ForeignKey] não precisa ser usada aqui.O EF é capaz de deduzir a chave estrangeira sozinho.
-        public virtual TipoDeUsuario TipoDeUsuario { get; set; } //Especifique virtual para apontar para o EF que é ele que deve preencher a propriedade.
-
-
-
-        public int EnderecoId { get; set; } 
-        public virtual Endereco Endereco { get; set; }
+       // public int TipoDeUsuarioId { get; set; } //[ForeignKey] não precisa ser usada aqui.O EF é capaz de deduzir a chave estrangeira sozinho.
+       // public virtual TipoDeUsuario TipoDeUsuario { get; set; } //Especifique virtual para apontar para o EF que é ele que deve preencher a propriedade.
+        
+       // public int EnderecoId { get; set; } 
+        //public virtual Endereco Endereco { get; set; }
 
     }
 }

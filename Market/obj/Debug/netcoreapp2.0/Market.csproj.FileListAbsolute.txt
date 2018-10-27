@@ -1,4 +1,3 @@
-C:\Users\lucas\Desktop\Market\Pizzaria\Market\obj\Debug\netcoreapp2.0\Market.csprojAssemblyReference.cache
 C:\Users\lucas\Desktop\Market\Pizzaria\Market\bin\Debug\netcoreapp2.0\Market.deps.json
 C:\Users\lucas\Desktop\Market\Pizzaria\Market\bin\Debug\netcoreapp2.0\Market.runtimeconfig.json
 C:\Users\lucas\Desktop\Market\Pizzaria\Market\bin\Debug\netcoreapp2.0\Market.runtimeconfig.dev.json
@@ -9,3 +8,4 @@ C:\Users\lucas\Desktop\Market\Pizzaria\Market\obj\Debug\netcoreapp2.0\Market.Ass
 C:\Users\lucas\Desktop\Market\Pizzaria\Market\obj\Debug\netcoreapp2.0\Market.AssemblyInfo.cs
 C:\Users\lucas\Desktop\Market\Pizzaria\Market\obj\Debug\netcoreapp2.0\Market.dll
 C:\Users\lucas\Desktop\Market\Pizzaria\Market\obj\Debug\netcoreapp2.0\Market.pdb
+C:\Users\lucas\Desktop\Market\Pizzaria\Market\obj\Debug\netcoreapp2.0\Market.csprojAssemblyReference.cache

@@ -8,11 +8,16 @@ namespace Market.Models
 {
     public class ApplicationDbContext : DbContext
     {
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-        //public DbSet<Cadastro> Cadastros { get; set; }
+        public virtual DbSet<Cadastro> Cadastros { get; set; }
+        public virtual DbSet<Endereco> Enderecos { get; set; }
+        public virtual DbSet<TipoDeUsuario> TipoDeUsuarios { get; set; }
+
+
     }
 }

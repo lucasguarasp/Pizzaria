@@ -31,8 +31,8 @@ namespace Market.Models
         public string Bairro { get; set; }
 
         [Display(Name = "Complemento")]
-        public int Complemento { get; set; }
+        public string Complemento { get; set; }
 
-        public virtual ICollection<Cadastro> Cadastros { get; set; }
+       // public virtual ICollection<Cadastro> Cadastros { get; set; }
     }
 }
