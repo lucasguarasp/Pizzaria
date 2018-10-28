@@ -9,10 +9,6 @@ namespace Market.Controllers
 {
     public class AdministrativaController : Controller
     {
-        //private ApplicationDbContext db = new ApplicationDbContext();
-
-        //private readonly ApplicationDbContext db = new ApplicationDbContext();
-
         private readonly ApplicationDbContext _db;
 
         public AdministrativaController(ApplicationDbContext db)
@@ -24,27 +20,32 @@ namespace Market.Controllers
         {
             return View();
         }
-        
+
         public IActionResult CadastroCliente()
         {
-
             return View();
         }
 
         [HttpPost]
-        public IActionResult CadastroCliente(string Nome, string Email, int Cpf, DateTime DataNascimento, string Login, string Password, int Telefone, int Celular, string Sexo, int Cep, string Rua, int Numero, string Cidade, string Bairro, string Complemento)
+        public IActionResult CadastroCliente(string Nome, string Email, string Cpf, DateTime DataNascimento, string Telefone, string Celular, string Sexo, string Cep, string Rua, string Numero, string Cidade, string Bairro, string Complemento)
         {
-            var cadastro = new Cadastro { Nome = Nome, Email = Email, Cpf = Cpf, DataNascimento = DataNascimento, Login = Login, Password = Password, Celular = Celular, Sexo = Sexo };
-            var endereco = new Endereco { Cep= Cep, Bairro = Bairro, Rua = Rua, Numero = Numero, Cidade =Cidade, Complemento = Complemento};
-            var tipoUsuario = new TipoDeUsuario { Descricao = "Usuário" };
-            _db.Cadastros.Add(cadastro);
-            //_db.Enderecos.Add(endereco);
-            //_db.TipoDeUsuarios.Add(tipoUsuario);
-            _db.SaveChanges();
+            var endereco = new Endereco { Cep = Cep, Bairro = Bairro, Rua = Rua, Numero = Numero, Cidade = Cidade, Complemento = Complemento };
 
-            return View();
-        }        
-        
+            if (ModelState.IsValid)
+            {
+                _db.Enderecos.Add(endereco);
+            }
 
+            var cadastro = new Cadastro { Nome = Nome, Email = Email, Cpf = Cpf, DataNascimento = DataNascimento, Password = Cpf, Celular = Celular, Sexo = Sexo, TipoDeUsuarioId = 1, EnderecoId = endereco.IdEndereco };
+
+            if (ModelState.IsValid)
+            {
+                _db.Cadastros.Add(cadastro);
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("CadastroCliente");
+
+        }
     }
 }

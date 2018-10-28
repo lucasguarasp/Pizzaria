@@ -22,15 +22,11 @@ namespace Market.Models
 
         [Required]
         [Display(Name = "CPF")]
-        public int Cpf { get; set; }
+        public string Cpf { get; set; }
 
         [Required]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
-
-        [Required]
-        [Display(Name = "Login")]
-        public string Login { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -38,10 +34,10 @@ namespace Market.Models
         public string Password { get; set; }
 
         [Display(Name = "Telefone")]
-        public int Telefone { get; set; }
+        public string Telefone { get; set; }
 
         [Display(Name = "Celular")]
-        public int Celular { get; set; }
+        public string Celular { get; set; }
 
         [Display(Name = "Sexo")]
         public string Sexo { get; set; }
@@ -50,11 +46,11 @@ namespace Market.Models
         [Display(Name = "Status do Cadastro")]
         public bool Status { get; set; }
 
-       // public int TipoDeUsuarioId { get; set; } //[ForeignKey] não precisa ser usada aqui.O EF é capaz de deduzir a chave estrangeira sozinho.
-       // public virtual TipoDeUsuario TipoDeUsuario { get; set; } //Especifique virtual para apontar para o EF que é ele que deve preencher a propriedade.
-        
-       // public int EnderecoId { get; set; } 
-        //public virtual Endereco Endereco { get; set; }
+        public int TipoDeUsuarioId { get; set; } //[ForeignKey] não precisa ser usada aqui.O EF é capaz de deduzir a chave estrangeira sozinho.
+        public virtual TipoDeUsuario TipoDeUsuario { get; set; } //Especifique virtual para apontar para o EF que é ele que deve preencher a propriedade.
+
+        public int EnderecoId { get; set; }
+        public virtual Endereco Endereco { get; set; }
 
     }
 }

@@ -11,7 +11,7 @@ using System;
 namespace Market.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181027180527_Market")]
+    [Migration("20181027224306_Market")]
     partial class Market
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,17 +26,17 @@ namespace Market.Migrations
                     b.Property<int>("IdCadastro")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Celular");
+                    b.Property<string>("Celular");
 
-                    b.Property<int>("Cpf");
+                    b.Property<string>("Cpf")
+                        .IsRequired();
 
                     b.Property<DateTime>("DataNascimento");
 
                     b.Property<string>("Email")
                         .IsRequired();
 
-                    b.Property<string>("Login")
-                        .IsRequired();
+                    b.Property<int>("EnderecoId");
 
                     b.Property<string>("Nome")
                         .IsRequired();
@@ -48,9 +48,15 @@ namespace Market.Migrations
 
                     b.Property<bool>("Status");
 
-                    b.Property<int>("Telefone");
+                    b.Property<string>("Telefone");
+
+                    b.Property<int>("TipoDeUsuarioId");
 
                     b.HasKey("IdCadastro");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.HasIndex("TipoDeUsuarioId");
 
                     b.ToTable("Cadastros");
                 });
@@ -63,14 +69,15 @@ namespace Market.Migrations
                     b.Property<string>("Bairro")
                         .IsRequired();
 
-                    b.Property<int>("Cep");
+                    b.Property<string>("Cep")
+                        .IsRequired();
 
                     b.Property<string>("Cidade")
                         .IsRequired();
 
                     b.Property<string>("Complemento");
 
-                    b.Property<int>("Numero");
+                    b.Property<string>("Numero");
 
                     b.Property<string>("Rua")
                         .IsRequired();
@@ -91,6 +98,19 @@ namespace Market.Migrations
                     b.HasKey("IdTipoDeUsuario");
 
                     b.ToTable("TipoDeUsuarios");
+                });
+
+            modelBuilder.Entity("Market.Models.Cadastro", b =>
+                {
+                    b.HasOne("Market.Models.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Market.Models.TipoDeUsuario", "TipoDeUsuario")
+                        .WithMany()
+                        .HasForeignKey("TipoDeUsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

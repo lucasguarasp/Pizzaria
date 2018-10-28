@@ -17,7 +17,6 @@ namespace Market.Models
 
         // A relação entre Cadastro e TipoDeUsuario é de 1 para N, então você precisa dizer isso ao EF.
         //public virtual ICollection<Cadastro> Cadastros { get; set; }
-        
 
     }
 }

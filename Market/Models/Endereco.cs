@@ -13,14 +13,14 @@ namespace Market.Models
 
         [Required]
         [Display(Name = "CEP")]
-        public int Cep { get; set; }
+        public string Cep { get; set; }
 
         [Required]
         [Display(Name = "Rua")]
         public string Rua { get; set; }
 
         [Display(Name = "Número")]
-        public int Numero { get; set; }         
+        public string Numero { get; set; }
 
         [Required]
         [Display(Name = "Cidade")]
@@ -33,6 +33,6 @@ namespace Market.Models
         [Display(Name = "Complemento")]
         public string Complemento { get; set; }
 
-       // public virtual ICollection<Cadastro> Cadastros { get; set; }
+        //public virtual ICollection<Cadastro> Cadastros { get; set; }
     }
 }

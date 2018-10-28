@@ -13257,11 +13257,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lucas\\Desktop\\Market\\Pizzaria\\Market\\Market.csproj",
+      "projectUniqueName": "C:\\Users\\lucas\\Desktop\\Pizzaria\\Market\\Market.csproj",
       "projectName": "Market",
-      "projectPath": "C:\\Users\\lucas\\Desktop\\Market\\Pizzaria\\Market\\Market.csproj",
+      "projectPath": "C:\\Users\\lucas\\Desktop\\Pizzaria\\Market\\Market.csproj",
       "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lucas\\Desktop\\Market\\Pizzaria\\Market\\obj\\",
+      "outputPath": "C:\\Users\\lucas\\Desktop\\Pizzaria\\Market\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

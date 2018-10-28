@@ -1688,6 +1688,12 @@
     <None Include="wwwroot\Administrativa\dist\js\demo.js" />
     <None Include="wwwroot\Administrativa\dist\js\pages\dashboard.js" />
     <None Include="wwwroot\Administrativa\dist\js\pages\dashboard2.js" />
+    <None Include="wwwroot\Administrativa\plugins\input-mask\jquery.inputmask.date.extensions.js" />
+    <None Include="wwwroot\Administrativa\plugins\input-mask\jquery.inputmask.extensions.js" />
+    <None Include="wwwroot\Administrativa\plugins\input-mask\jquery.inputmask.js" />
+    <None Include="wwwroot\Administrativa\plugins\input-mask\jquery.inputmask.numeric.extensions.js" />
+    <None Include="wwwroot\Administrativa\plugins\input-mask\jquery.inputmask.phone.extensions.js" />
+    <None Include="wwwroot\Administrativa\plugins\input-mask\jquery.inputmask.regex.extensions.js" />
   </ItemGroup>
 
 </Project>
