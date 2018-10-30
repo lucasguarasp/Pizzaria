@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Fornalha | Pizzaria</title>
+    <title>;) | Pizzaria</title>
     <!-- Tell the browser to be responsive to screaen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -14,6 +14,21 @@
     <link rel="stylesheet" href="~/Administrativa/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="~/Administrativa/bower_components/Ionicons/css/ionicons.min.css">
+
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="~/Administrativa/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="~/Administrativa/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/Administrativa/plugins/iCheck/all.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="~/Administrativa/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="~/Administrativa/plugins/timepicker/bootstrap-timepicker.min.css">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/Administrativa/bower_components/select2/dist/css/select2.min.css">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Administrativa/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -42,7 +57,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Fornalha</b>|Pizzaria</span>
+                <span class="logo-lg"><b>:)</b>|Pizzaria</span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -137,7 +152,9 @@
                     <li>
                         <a asp-area="" asp-controller="Administrativa" asp-action="CadastroCliente"><i class="fa fa-circle-o text-green"></i> <span>Cadastro</span></a>
                     </li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+                    <li>
+                        <a asp-area="" asp-controller="Administrativa" asp-action="AddProduto"><i class="fa fa-circle-o text-yellow"></i> <span>ADD Produto</span></a>
+                    </li>
                     <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
                 </ul>
             </section>
@@ -224,7 +241,7 @@
 
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
-                <b>Pizzaria</b>  | Fornalha
+                <b>Pizzaria</b>  | :)
             </div>
             <strong>Copyright &copy; 2018-2019 <a href="#"> </a>.</strong> All rights
             reserved.
@@ -430,17 +447,36 @@
     <!-- Bootstrap 3.3.7 -->
     <script src="~/Administrativa/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
+    <!-- Select2 -->
+    <script src="~/Administrativa/bower_components/select2/dist/js/select2.full.min.js"></script>
+
     <!-- InputMask -->
     <script src="~/Administrativa/plugins/input-mask/jquery.inputmask.js"></script>
     <script src="~/Administrativa/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="~/Administrativa/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
+    <!-- date-range-picker -->
+    <script src="~/Administrativa/bower_components/moment/min/moment.min.js"></script>
+    <script src="~/Administrativa/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="~/Administrativa/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="~/Administrativa/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="~/Administrativa/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="~/Administrativa/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="~/Administrativa/plugins/iCheck/icheck.min.js"></script>
     <!-- FastClick -->
     <script src="~/Administrativa/bower_components/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
     <script src="~/Administrativa/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/Administrativa/dist/js/demo.js"></script>
+
+    <!-- Meus Scripts -->
+    <script src="~/Script/MeuScript.js"></script>
 
 </body>
 </html>

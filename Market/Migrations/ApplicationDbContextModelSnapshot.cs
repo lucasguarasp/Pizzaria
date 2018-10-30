@@ -60,6 +60,19 @@ namespace Market.Migrations
                     b.ToTable("Cadastros");
                 });
 
+            modelBuilder.Entity("Market.Models.Categoria", b =>
+                {
+                    b.Property<int>("IdCategoria")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descricao")
+                        .IsRequired();
+
+                    b.HasKey("IdCategoria");
+
+                    b.ToTable("Categorias");
+                });
+
             modelBuilder.Entity("Market.Models.Endereco", b =>
                 {
                     b.Property<int>("IdEndereco")
@@ -86,6 +99,60 @@ namespace Market.Migrations
                     b.ToTable("Enderecos");
                 });
 
+            modelBuilder.Entity("Market.Models.Produto", b =>
+                {
+                    b.Property<int>("IdProduto")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CategoriaId");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired();
+
+                    b.Property<string>("Foto");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.Property<int>("TamanhoId");
+
+                    b.Property<double>("Valor");
+
+                    b.HasKey("IdProduto");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.HasIndex("TamanhoId");
+
+                    b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("Market.Models.Tamanho", b =>
+                {
+                    b.Property<int>("IdTamanho")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descricao")
+                        .IsRequired();
+
+                    b.HasKey("IdTamanho");
+
+                    b.ToTable("Tamanhos");
+                });
+
+            modelBuilder.Entity("Market.Models.testes", b =>
+                {
+                    b.Property<int>("IdTamanho")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descricao")
+                        .IsRequired();
+
+                    b.HasKey("IdTamanho");
+
+                    b.ToTable("Testes");
+                });
+
             modelBuilder.Entity("Market.Models.TipoDeUsuario", b =>
                 {
                     b.Property<int>("IdTipoDeUsuario")
@@ -109,6 +176,19 @@ namespace Market.Migrations
                     b.HasOne("Market.Models.TipoDeUsuario", "TipoDeUsuario")
                         .WithMany()
                         .HasForeignKey("TipoDeUsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Market.Models.Produto", b =>
+                {
+                    b.HasOne("Market.Models.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Market.Models.Tamanho", "Tamanho")
+                        .WithMany()
+                        .HasForeignKey("TamanhoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

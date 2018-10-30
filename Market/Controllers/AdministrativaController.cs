@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Market.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Market.Controllers
 {
@@ -46,6 +48,38 @@ namespace Market.Controllers
 
             return RedirectToAction("CadastroCliente");
 
+        }
+
+        public IActionResult AddProduto()
+        {
+            IEnumerable<Categoria> categorias = _db.Categorias.ToList();
+
+            ViewModels.Produto viewModel = new ViewModels.Produto
+
+            {
+
+                Categorias = categorias
+
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddProduto(string nome, double valor, string descricao, string foto, int categoria, int tamanho)
+        {
+            var produto = new Produto { Nome = nome, Valor = valor, Descricao = descricao, Foto = foto, CategoriaId = categoria, TamanhoId = tamanho };
+            if (ModelState.IsValid)
+            {
+                _db.Produtos.Add(produto);
+                _db.SaveChanges();
+                return RedirectToAction("AddProduto");
+            }
+            else
+            {
+                return View(produto);
+            }
+            
         }
     }
 }
