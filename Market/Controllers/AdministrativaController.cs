@@ -96,15 +96,16 @@ namespace Market.Controllers
             var insumo = _db.Insumo.ToList();
             return View(insumo);
         }
-
+        
         [HttpPost]
         public IActionResult AddInsumo(string Nome, double Quantidade, string Foto)
-        {
+        {            
             var insumo = new Insumo { Nome = Nome, Quantidade = Quantidade, Foto = Foto };
-            return View();
+            _db.Insumo.Add(insumo);
+            _db.SaveChanges();
+            return RedirectToAction("AddInsumo");
         }
-
-       
+        
 
 
     }
