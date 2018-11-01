@@ -41,6 +41,21 @@ namespace Market.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Insumo",
+                columns: table => new
+                {
+                    IdInsumo = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Foto = table.Column<string>(nullable: true),
+                    Nome = table.Column<string>(nullable: false),
+                    Quantidade = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Insumo", x => x.IdInsumo);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tamanhos",
                 columns: table => new
                 {
@@ -156,6 +171,9 @@ namespace Market.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Cadastros");
+
+            migrationBuilder.DropTable(
+                name: "Insumo");
 
             migrationBuilder.DropTable(
                 name: "Produtos");

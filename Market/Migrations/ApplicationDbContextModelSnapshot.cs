@@ -99,6 +99,23 @@ namespace Market.Migrations
                     b.ToTable("Enderecos");
                 });
 
+            modelBuilder.Entity("Market.Models.Insumo", b =>
+                {
+                    b.Property<int>("IdInsumo")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Foto");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.Property<double>("Quantidade");
+
+                    b.HasKey("IdInsumo");
+
+                    b.ToTable("Insumo");
+                });
+
             modelBuilder.Entity("Market.Models.Produto", b =>
                 {
                     b.Property<int>("IdProduto")
@@ -138,19 +155,6 @@ namespace Market.Migrations
                     b.HasKey("IdTamanho");
 
                     b.ToTable("Tamanhos");
-                });
-
-            modelBuilder.Entity("Market.Models.testes", b =>
-                {
-                    b.Property<int>("IdTamanho")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Descricao")
-                        .IsRequired();
-
-                    b.HasKey("IdTamanho");
-
-                    b.ToTable("Testes");
                 });
 
             modelBuilder.Entity("Market.Models.TipoDeUsuario", b =>

@@ -9,9 +9,7 @@
     //Money Euro
     $('[data-mask]').inputmask()
 
-    //CPF
-    $("#cpf").mask("999.999.999-99");
-
+    
 
     //Date range picker
     $('#reservation').daterangepicker()

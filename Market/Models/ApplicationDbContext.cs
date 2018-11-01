@@ -35,6 +35,7 @@ namespace Market.Models
         public virtual DbSet<Produto> Produtos { get; set; }
         public virtual DbSet<Tamanho> Tamanhos { get; set; }
         public virtual DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Market.Models.Insumo> Insumo { get; set; }
 
 
     }

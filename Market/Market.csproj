@@ -2689,4 +2689,8 @@
     <TypeScriptCompile Include="wwwroot\Administrativa\bower_components\moment\moment.d.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Service\" />
+  </ItemGroup>
+
 </Project>

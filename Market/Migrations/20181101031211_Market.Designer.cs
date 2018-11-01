@@ -11,7 +11,7 @@ using System;
 namespace Market.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181028215939_Market")]
+    [Migration("20181101031211_Market")]
     partial class Market
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,6 +98,23 @@ namespace Market.Migrations
                     b.HasKey("IdEndereco");
 
                     b.ToTable("Enderecos");
+                });
+
+            modelBuilder.Entity("Market.Models.Insumo", b =>
+                {
+                    b.Property<int>("IdInsumo")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Foto");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.Property<double>("Quantidade");
+
+                    b.HasKey("IdInsumo");
+
+                    b.ToTable("Insumo");
                 });
 
             modelBuilder.Entity("Market.Models.Produto", b =>

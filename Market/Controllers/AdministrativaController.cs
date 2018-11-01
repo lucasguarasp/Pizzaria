@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Market.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +17,20 @@ namespace Market.Controllers
     public class AdministrativaController : Controller
     {
         private readonly ApplicationDbContext _db;
-
         public AdministrativaController(ApplicationDbContext db)
         {
             _db = db;
         }
+
+        //private readonly IHostingEnvironment _appEnvironment;
+        //public AdministrativaController(IHostingEnvironment appEnvironment)
+        //{
+        //    //----< Init: Controller >----
+        //    _appEnvironment = appEnvironment;
+        //    //----</ Init: Controller >----
+        //}
+
+
 
         public IActionResult Index()
         {
@@ -53,13 +67,9 @@ namespace Market.Controllers
         public IActionResult AddProduto()
         {
             IEnumerable<Categoria> categorias = _db.Categorias.ToList();
-
             ViewModels.Produto viewModel = new ViewModels.Produto
-
             {
-
                 Categorias = categorias
-
             };
 
             return View(viewModel);
@@ -79,7 +89,23 @@ namespace Market.Controllers
             {
                 return View(produto);
             }
-            
         }
+
+        public IActionResult AddInsumo()
+        {
+            var insumo = _db.Insumo.ToList();
+            return View(insumo);
+        }
+
+        [HttpPost]
+        public IActionResult AddInsumo(string Nome, double Quantidade, string Foto)
+        {
+            var insumo = new Insumo { Nome = Nome, Quantidade = Quantidade, Foto = Foto };
+            return View();
+        }
+
+       
+
+
     }
 }

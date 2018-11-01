@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Market.Models.Insumo>
+
+@{
+    ViewData["Title"] = "AddInsumo";
+    Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
+}
+
+<script src="~/Script/jquery-1.10.2.js"></script>
+<script src="~/Script/jquery.min.js"></script>
+    <script>
+
+        $(".botao").click(function () {
+            var nome = $("#Nome").val();
+            var valor = $("#Valor").val();
+            var foto = $("#Foto").val();
+            var x = "";
+            $.ajax({
+                type: "POST",
+                url: '/Administrativa/AddInsumo',
+                data: {
+                    'Nome': nome,
+                    'Valor': valor,
+                    'Foto': foto
+                },
+                success: function (data) {
+
+                    alert('Enviado');
+
+                },
+                error: function (error) {
+                    alert('Nao enviou');
+                }
+            });
+        });
+
+    </script>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Adicione Insumo</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form>
+                    
+                    <!-- text input -->
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Nome" id="Nome" name="Nome">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Quantidade" id="Quantidade" name="Quantidade">
+                    </div>
+                    <div class="form-group">
+                        
+                        <input type="text" class="form-control" placeholder="Foto" id="Foto" name="Foto">
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary botao">Salvar</a>
+                    </div>
+                </form>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantidade)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Foto)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantidade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Foto)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.IdInsumo">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.IdInsumo">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.IdInsumo">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
