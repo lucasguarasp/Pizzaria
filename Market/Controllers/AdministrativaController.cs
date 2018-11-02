@@ -103,7 +103,8 @@ namespace Market.Controllers
             var insumo = new Insumo { Nome = Nome, Quantidade = Quantidade, Foto = Foto };
             _db.Insumo.Add(insumo);
             _db.SaveChanges();
-            return RedirectToAction("AddInsumo");
+            var insumos = _db.Insumo.ToList();
+            return View(insumos);
         }
         
 

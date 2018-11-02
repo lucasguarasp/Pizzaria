@@ -6,7 +6,6 @@
 }
 
 
-<script src="~/Script/jquery.min.js"></script>
     <script>
         $(".botao").click(function () {
             var nome = $("#Nome").val();
@@ -44,21 +43,20 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <form asp-controller="Administrativa" asp-action="AddInsumo">
-                    
                     <!-- text input -->
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Nome" id="Nome" name="Nome">
+                        <input type="text" class="form-control" placeholder="Nome" id="Nome">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Quantidade" id="Quantidade" name="Quantidade">
+                        <input type="text" class="form-control" placeholder="Quantidade" id="Quantidade">
                     </div>
                     <div class="form-group">
-                        
-                        <input type="text" class="form-control" placeholder="Foto" id="Foto" name="Foto">
+
+                        <input type="text" class="form-control" placeholder="Foto" id="Foto">
                     </div>
 
                     <div class="modal-footer">
-                        <a href="#" type="submit" class="btn btn-primary botao">Salvar</a>
+                        <button type="submit" class="btn btn-primary botao" > Adicionar</button>                        
                     </div>
                 </form>
 
