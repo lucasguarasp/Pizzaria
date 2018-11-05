@@ -32,7 +32,6 @@ namespace Market.Models
 
         [Display(Name = "Complemento")]
         public string Complemento { get; set; }
-
-        //public virtual ICollection<Cadastro> Cadastros { get; set; }
+        
     }
 }

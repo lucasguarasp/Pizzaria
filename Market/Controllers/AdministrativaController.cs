@@ -22,16 +22,6 @@ namespace Market.Controllers
             _db = db;
         }
 
-        //private readonly IHostingEnvironment _appEnvironment;
-        //public AdministrativaController(IHostingEnvironment appEnvironment)
-        //{
-        //    //----< Init: Controller >----
-        //    _appEnvironment = appEnvironment;
-        //    //----</ Init: Controller >----
-        //}
-
-
-
         public IActionResult Index()
         {
             return View();
@@ -93,20 +83,42 @@ namespace Market.Controllers
 
         public IActionResult AddInsumo()
         {
-            var insumo = _db.Insumo.ToList();
+            var insumo = _db.Insumos.ToList();
             return View(insumo);
         }
-        
+
         [HttpPost]
-        public IActionResult AddInsumo(string Nome, double Quantidade, string Foto)
-        {            
-            var insumo = new Insumo { Nome = Nome, Quantidade = Quantidade, Foto = Foto };
-            _db.Insumo.Add(insumo);
+        public IActionResult AddInsumo(string Nome, double Quantidade, double Valor)
+        {
+            var insumo = new Insumo { Nome = Nome, Quantidade = Quantidade, PrecoInsumo = Valor, EstoqueMax = Quantidade };
+            var Historicoinsumo = new HistoricoInsumo { Nome = Nome, Quantidade = Quantidade, PrecoInsumo = Valor, DataAdicao = DateTime.Now };
+
+            _db.Insumos.Add(insumo);
+            _db.HistoricoInsumos.Add(Historicoinsumo);
+
             _db.SaveChanges();
-            var insumos = _db.Insumo.ToList();
+            var insumos = _db.Insumos.ToList();
             return View(insumos);
         }
+
         
+        public IActionResult RemoveInsumo(int Id)
+        {
+            var insumo = _db.Insumos.Single(x => x.IdInsumo == Id);
+            _db.Insumos.Remove(insumo);
+            _db.SaveChanges();
+            return RedirectToAction("AddInsumo");
+        }
+
+        public IActionResult EditInsumo(int Id)
+        {
+            var insumo = _db.Insumos.Single(x => x.IdInsumo == Id);
+            _db.Insumos.Remove(insumo);
+            _db.SaveChanges();
+            return RedirectToAction("AddInsumo");
+        }
+
+
 
 
     }

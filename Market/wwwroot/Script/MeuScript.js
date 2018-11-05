@@ -9,7 +9,7 @@
     //Money Euro
     $('[data-mask]').inputmask()
 
-    
+    $("#Valor").mask("00,00");
 
     //Date range picker
     $('#reservation').daterangepicker()

@@ -6,83 +6,98 @@
 }
 
 
-    <script>
-        $(".botao").click(function () {
-            var nome = $("#Nome").val();
-            var valor = $("#Valor").val();
-            var foto = $("#Foto").val();
-            var x = "";
-            $.ajax({
-                type: "POST",
-                url: '/Administrativa/AddInsumo',
-                data: {
-                    'Nome': nome,
-                    'Valor': valor,
-                    'Foto': foto
-                },
-                success: function (data) {
+<script>
+    $(".botao").click(function () {
 
-                    alert('Enviado');
+        var nome = $("#Nome").val();
+        var valor = $("#Valor").val();
+        var quantidade = $("#Quantidade").val();
+        var x = "";
+        $.ajax({
+            type: "POST",
+            url: '/Administrativa/AddInsumo',
+            data: {
+                'Nome': nome,
+                'Valor': valor,
+                'Quantidade': quantidade
+            },
+            success: function (data) {
 
-                },
-                error: function (error) {
-                    alert('Nao enviou');
-                }
-            });
+                alert('Enviado');
+
+            },
+            error: function (error) {
+                alert('Nao enviou');
+            }
         });
+    });
+</script>
 
-
-    </script>
-
-<div class="row">
-    <div class="col-lg-6">
-        <div class="box box-warning">
-            <div class="box-header with-border">
-                <h3 class="box-title">Adicione Insumo</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <form asp-controller="Administrativa" asp-action="AddInsumo">
-                    <!-- text input -->
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Nome" id="Nome">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Quantidade" id="Quantidade">
-                    </div>
-                    <div class="form-group">
-
-                        <input type="text" class="form-control" placeholder="Foto" id="Foto">
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary botao" > Adicionar</button>                        
-                    </div>
-                </form>
-
-            </div>
-            <!-- /.box-body -->
-        </div>
-
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Cadastrar Insumo</h3>
     </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form form asp-controller="Administrativa" asp-action="AddInsumo">
+        <div class="box-body">
 
-    <div class="col-lg-6">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Nome)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Quantidade)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Foto)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
+            <div class="col-lg-4">
+                <label for="Nome">Nome</label>
+                <input type="text" class="form-control" placeholder="Nome do produto" name="Nome">
+            </div>
+            <div class="col-lg-4">
+                <label for="Quantidade">Quantidade</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Quantidade em Kg" name="Quantidade">
+                    <span class="input-group-addon">Kg</span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <label for="Valor">Valor</label>
+                <div class="input-group">
+                    <span class="input-group-addon">R$</span>
+                    <input type="text" class="form-control" placeholder="Valor do Kg" name="Valor">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-info pull-right botao">Adicionar</button>
+        </div>
+        <!-- /.box-footer -->
+    </form>
+</div>
+
+
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Insumos</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding">
+        <table class="table table-hover">
             <tbody>
+                <tr>
+                    <th style="width: 35%">
+                        @Html.DisplayName("Nome")
+                    </th>
+                    <th style="width: 15%">
+                        @Html.DisplayName("Preço em R$")
+                    </th>
+                    <th style="width: 15%">
+                        @Html.DisplayName("Quantidade em Kg")
+                    </th>
+                    <th style="width: 25%">
+                        @Html.DisplayName("Estoque")
+                    </th>
+
+                    <th style="width: 10%; text-align: center">
+                        @Html.DisplayName("Editar")
+                    </th>
+                </tr>
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -90,19 +105,59 @@
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.PrecoInsumo)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Quantidade)
                         </td>
+
                         <td>
-                            @Html.DisplayFor(modelItem => item.Foto)
+
+                            @{
+                                double porcentagem = Math.Round((item.Quantidade / item.EstoqueMax) * 100, 2);
+
+                                var color = "";
+                                var bg = "";
+                                string porc = porcentagem.ToString().Replace(",",".");
+
+                                if (porcentagem < 25)
+                                {
+                                    color = "progress-bar progress-bar-danger";
+                                    bg = "badge bg-red";
+
+                                }
+                                if (porcentagem >= 25 && porcentagem < 50)
+                                {
+                                    color = "progress-bar progress-bar-yellow";
+                                    bg = "badge bg-yellow";
+                                }
+                                if (porcentagem >= 50 && porcentagem <= 100)
+                                {
+                                    color = "progress-bar progress-bar-success";
+                                    bg = "badge bg-green";
+                                }
+                                <div class="form-group">
+                                    <div class="col-lg-9">
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="@color" style="width: @porc%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <span class="@bg">@porcentagem</span>
+                                    </div>
+                                </div>
+                            }
+
                         </td>
-                        <td>
+
+                        <td>                            
                             <a asp-action="Edit" asp-route-id="@item.IdInsumo">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.IdInsumo">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.IdInsumo">Delete</a>
+                            <a asp-action="RemoveInsumo" asp-route-id="@item.IdInsumo">Delete</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+    <!-- /.box-body -->
 </div>

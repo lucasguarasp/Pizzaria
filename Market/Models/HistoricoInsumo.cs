@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Market.Models
 {
-    public class Insumo
+    public class HistoricoInsumo
     {
         [Key]
-        public int IdInsumo { get; set; }
+        public int IdHistoricoInsumo { get; set; }
 
         [Required]
         [Display(Name = "Nome")]
@@ -20,10 +20,10 @@ namespace Market.Models
         public double Quantidade { get; set; }
 
         [Display(Name = "Preço do Insumo")]
-        public double PrecoInsumo { get; set; }
+        public double PrecoInsumo { get; set; }        
 
-        [Display(Name = "Esque máximo")]
-        public double EstoqueMax { get; set; }
-
+        [Required]
+        [Display(Name = "Data de Adição do Insumo")]
+        public DateTime DataAdicao { get; set; }
     }
 }

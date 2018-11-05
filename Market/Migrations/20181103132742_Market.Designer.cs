@@ -11,7 +11,7 @@ using System;
 namespace Market.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181101031211_Market")]
+    [Migration("20181103132742_Market")]
     partial class Market
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,21 +100,42 @@ namespace Market.Migrations
                     b.ToTable("Enderecos");
                 });
 
+            modelBuilder.Entity("Market.Models.HistoricoInsumo", b =>
+                {
+                    b.Property<int>("IdHistoricoInsumo")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataAdicao");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.Property<double>("PrecoInsumo");
+
+                    b.Property<double>("Quantidade");
+
+                    b.HasKey("IdHistoricoInsumo");
+
+                    b.ToTable("HistoricoInsumos");
+                });
+
             modelBuilder.Entity("Market.Models.Insumo", b =>
                 {
                     b.Property<int>("IdInsumo")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Foto");
+                    b.Property<double>("EstoqueMax");
 
                     b.Property<string>("Nome")
                         .IsRequired();
+
+                    b.Property<double>("PrecoInsumo");
 
                     b.Property<double>("Quantidade");
 
                     b.HasKey("IdInsumo");
 
-                    b.ToTable("Insumo");
+                    b.ToTable("Insumos");
                 });
 
             modelBuilder.Entity("Market.Models.Produto", b =>

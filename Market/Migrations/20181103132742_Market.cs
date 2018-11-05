@@ -41,18 +41,35 @@ namespace Market.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Insumo",
+                name: "HistoricoInsumos",
                 columns: table => new
                 {
-                    IdInsumo = table.Column<int>(nullable: false)
+                    IdHistoricoInsumo = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Foto = table.Column<string>(nullable: true),
+                    DataAdicao = table.Column<DateTime>(nullable: false),
                     Nome = table.Column<string>(nullable: false),
+                    PrecoInsumo = table.Column<double>(nullable: false),
                     Quantidade = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Insumo", x => x.IdInsumo);
+                    table.PrimaryKey("PK_HistoricoInsumos", x => x.IdHistoricoInsumo);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Insumos",
+                columns: table => new
+                {
+                    IdInsumo = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EstoqueMax = table.Column<double>(nullable: false),
+                    Nome = table.Column<string>(nullable: false),
+                    PrecoInsumo = table.Column<double>(nullable: false),
+                    Quantidade = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Insumos", x => x.IdInsumo);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,7 +190,10 @@ namespace Market.Migrations
                 name: "Cadastros");
 
             migrationBuilder.DropTable(
-                name: "Insumo");
+                name: "HistoricoInsumos");
+
+            migrationBuilder.DropTable(
+                name: "Insumos");
 
             migrationBuilder.DropTable(
                 name: "Produtos");
