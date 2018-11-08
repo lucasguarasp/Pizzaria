@@ -27,8 +27,7 @@ namespace Market.Models
         [Required]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
-
-        [Required]
+                
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }

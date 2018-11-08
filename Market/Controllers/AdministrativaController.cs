@@ -34,27 +34,20 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        //public IActionResult CadastroCliente(string Nome, string Email, string Cpf, DateTime DataNascimento, string Telefone, string Celular, string Sexo, string Cep, string Rua, string Numero, string Cidade, string Bairro, string Complemento)
-
-        public IActionResult CadastroCliente(ViewModelCadastro Cadastro)
+        public IActionResult CadastroCliente(ViewModelCadastro Cad)
         {
-            var endereco = new Endereco { Cep = Cadastro.Endereco.Cep, Bairro = Cadastro.Endereco.Bairro, Rua = Cadastro.Endereco.Rua, Numero = Cadastro.Endereco.Numero, Cidade = Cadastro.Endereco.Cidade, Complemento = Cadastro.Endereco.Complemento };
+            var endereco = new Endereco { Cep = Cad.Endereco.Cep, Bairro = Cad.Endereco.Bairro, Rua = Cad.Endereco.Rua, Numero = Cad.Endereco.Numero, Cidade = Cad.Endereco.Cidade, Complemento = Cad.Endereco.Complemento };
+            _db.Enderecos.Add(endereco);
+
+            var cadastro = new Cadastro { Nome = Cad.Cadastro.Nome, Email = Cad.Cadastro.Email, Cpf = Cad.Cadastro.Cpf, DataNascimento = Cad.Cadastro.DataNascimento, Password = Cad.Cadastro.Cpf, Telefone = Cad.Cadastro.Telefone, Celular = Cad.Cadastro.Celular, Sexo = Cad.Cadastro.Sexo, TipoDeUsuarioId = 2, EnderecoId = endereco.IdEndereco, Status = true };
+            _db.Cadastros.Add(cadastro);
 
             if (ModelState.IsValid)
             {
-                _db.Enderecos.Add(endereco);
-            }
-
-            var cadastro = new Cadastro { Nome = Cadastro.Cadastro.Nome, Email = Cadastro.Cadastro.Email, Cpf = Cadastro.Cadastro.Cpf, DataNascimento = Cadastro.Cadastro.DataNascimento, Password = Cadastro.Cadastro.Cpf, Celular = Cadastro.Cadastro.Celular, Sexo = Cadastro.Cadastro.Sexo, TipoDeUsuarioId = 1, EnderecoId = endereco.IdEndereco };
-
-            if (ModelState.IsValid)
-            {
-                _db.Cadastros.Add(cadastro);
                 _db.SaveChanges();
             }
 
             return RedirectToAction("CadastroCliente");
-
         }
 
         public IActionResult AddProduto()
@@ -107,7 +100,7 @@ namespace Market.Controllers
             return View(insumos);
         }
 
-        
+
         public IActionResult RemoveInsumo(int Id)
         {
             var insumo = _db.Insumos.Single(x => x.IdInsumo == Id);
