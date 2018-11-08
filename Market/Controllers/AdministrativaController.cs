@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Market.Models;
+using Market.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,16 +34,18 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        public IActionResult CadastroCliente(string Nome, string Email, string Cpf, DateTime DataNascimento, string Telefone, string Celular, string Sexo, string Cep, string Rua, string Numero, string Cidade, string Bairro, string Complemento)
+        //public IActionResult CadastroCliente(string Nome, string Email, string Cpf, DateTime DataNascimento, string Telefone, string Celular, string Sexo, string Cep, string Rua, string Numero, string Cidade, string Bairro, string Complemento)
+
+        public IActionResult CadastroCliente(ViewModelCadastro Cadastro)
         {
-            var endereco = new Endereco { Cep = Cep, Bairro = Bairro, Rua = Rua, Numero = Numero, Cidade = Cidade, Complemento = Complemento };
+            var endereco = new Endereco { Cep = Cadastro.Endereco.Cep, Bairro = Cadastro.Endereco.Bairro, Rua = Cadastro.Endereco.Rua, Numero = Cadastro.Endereco.Numero, Cidade = Cadastro.Endereco.Cidade, Complemento = Cadastro.Endereco.Complemento };
 
             if (ModelState.IsValid)
             {
                 _db.Enderecos.Add(endereco);
             }
 
-            var cadastro = new Cadastro { Nome = Nome, Email = Email, Cpf = Cpf, DataNascimento = DataNascimento, Password = Cpf, Celular = Celular, Sexo = Sexo, TipoDeUsuarioId = 1, EnderecoId = endereco.IdEndereco };
+            var cadastro = new Cadastro { Nome = Cadastro.Cadastro.Nome, Email = Cadastro.Cadastro.Email, Cpf = Cadastro.Cadastro.Cpf, DataNascimento = Cadastro.Cadastro.DataNascimento, Password = Cadastro.Cadastro.Cpf, Celular = Cadastro.Cadastro.Celular, Sexo = Cadastro.Cadastro.Sexo, TipoDeUsuarioId = 1, EnderecoId = endereco.IdEndereco };
 
             if (ModelState.IsValid)
             {
@@ -57,18 +60,21 @@ namespace Market.Controllers
         public IActionResult AddProduto()
         {
             IEnumerable<Categoria> categorias = _db.Categorias.ToList();
-            ViewModels.Produto viewModel = new ViewModels.Produto
+            IEnumerable<Insumo> insumos = _db.Insumos.ToList();
+            ViewModelProduto viewModel = new ViewModelProduto
             {
-                Categorias = categorias
+                Categorias = categorias,
+                Insumos = insumos
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult AddProduto(string nome, double valor, string descricao, string foto, int categoria, int tamanho)
+        //public IActionResult AddProduto(string nome, double valor, string descricao, string foto, int categoria, int tamanho)
+        public IActionResult AddProduto(ViewModelProduto Produto)
         {
-            var produto = new Produto { Nome = nome, Valor = valor, Descricao = descricao, Foto = foto, CategoriaId = categoria, TamanhoId = tamanho };
+            var produto = new Produto { Nome = Produto.Produto.Nome, Valor = Produto.Produto.Valor, Descricao = Produto.Produto.Descricao, Foto = Produto.Produto.Foto, CategoriaId = Produto.Produto.CategoriaId, TamanhoId = Produto.Produto.TamanhoId };
             if (ModelState.IsValid)
             {
                 _db.Produtos.Add(produto);
