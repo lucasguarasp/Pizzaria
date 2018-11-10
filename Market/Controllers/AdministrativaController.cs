@@ -64,10 +64,17 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        //public IActionResult AddProduto(string nome, double valor, string descricao, string foto, int categoria, int tamanho)
-        public IActionResult AddProduto(ViewModelProduto Produto)
+        public IActionResult AddProduto(ViewModelProduto Prod)
         {
-            var produto = new Produto { Nome = Produto.Produto.Nome, Valor = Produto.Produto.Valor, Descricao = Produto.Produto.Descricao, Foto = Produto.Produto.Foto, CategoriaId = Produto.Produto.CategoriaId, TamanhoId = Produto.Produto.TamanhoId };
+            var produto = new Produto
+            {
+                Nome = Prod.Produto.Nome,
+                Valor = Prod.Produto.Valor,
+                Descricao = Prod.Produto.Descricao,
+                Foto = Prod.Produto.Foto,
+                CategoriaId = Prod.Produto.CategoriaId
+            };
+
             if (ModelState.IsValid)
             {
                 _db.Produtos.Add(produto);
@@ -91,11 +98,14 @@ namespace Market.Controllers
         {
             var insumo = new Insumo { Nome = Nome, Quantidade = Quantidade, PrecoInsumo = Valor, EstoqueMax = Quantidade };
             var Historicoinsumo = new HistoricoInsumo { Nome = Nome, Quantidade = Quantidade, PrecoInsumo = Valor, DataAdicao = DateTime.Now };
-
             _db.Insumos.Add(insumo);
             _db.HistoricoInsumos.Add(Historicoinsumo);
 
-            _db.SaveChanges();
+
+            if (ModelState.IsValid)
+            {
+                _db.SaveChanges();
+            }
             var insumos = _db.Insumos.ToList();
             return View(insumos);
         }

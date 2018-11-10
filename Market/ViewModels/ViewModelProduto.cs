@@ -12,7 +12,6 @@ namespace Market.ViewModels
         public Produto Produto { get; set; }
 
         public IEnumerable<Categoria> Categorias { get; set; }
-
         public IEnumerable<Insumo> Insumos { get; set; }
     }
 }
