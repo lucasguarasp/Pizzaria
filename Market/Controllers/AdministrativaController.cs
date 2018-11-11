@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Market.Controllers
 {
@@ -52,15 +54,20 @@ namespace Market.Controllers
 
         public IActionResult AddProduto()
         {
-            IEnumerable<Categoria> categorias = _db.Categorias.ToList();
-            IEnumerable<Insumo> insumos = _db.Insumos.ToList();
-            ViewModelProduto viewModel = new ViewModelProduto
-            {
-                Categorias = categorias,
-                Insumos = insumos
-            };
+            //IEnumerable<Categoria> categorias = _db.Categorias.ToList();
+            //IEnumerable<Insumo> insumos = _db.Insumos.ToList();
+            //ViewModelProduto viewModel = new ViewModelProduto
+            //{
+            //    Categorias = categorias,
+            //    Insumos = insumos
+            //};
+            //return View(viewModel);
 
-            return View(viewModel);
+            ViewBag.categorias = _db.Categorias.ToList();
+            ViewBag.insumos = _db.Insumos.ToList();
+
+            return View();
+
         }
 
         [HttpPost]
@@ -74,6 +81,8 @@ namespace Market.Controllers
                 Foto = Prod.Produto.Foto,
                 CategoriaId = Prod.Produto.CategoriaId
             };
+
+
 
             if (ModelState.IsValid)
             {

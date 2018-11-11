@@ -22,11 +22,11 @@
             <div class="form-group">
                 <label asp-for="Insumos" class="control-label"></label>
                 @*<input asp-for="Produto.Descricao" class="form-control select2" multiple="multiple" data-placeholder="Selecione os ingredientes"
-                     style="width: 100%;" />*@
+                    style="width: 100%;" />*@
                 @*<span asp-validation-for="Produto.Descricao" class="text-danger"></span>*@
                 <select asp-for="Produto.Descricao" class="form-control select2" multiple="multiple" data-placeholder="Selecione os ingredientes"
                         style="width: 100%;"
-                        asp-items="@(new SelectList(Model.Insumos,"IdInsumo", "Nome")) "></select>
+                        asp-items="@(new MultiSelectList(@ViewBag.insumos,"IdInsumo", "Nome")) "></select>
 
             </div>
             <div class="form-group">
@@ -37,7 +37,7 @@
             <div class="form-group">
                 <label asp-for="Categorias" class="control-label"></label>
                 <select asp-for="Produto.CategoriaId" class="form-control select2"
-                        asp-items="@(new SelectList(Model.Categorias,"IdCategoria", "Descricao")) "></select>
+                        asp-items="@(new SelectList(@ViewBag.categorias,"IdCategoria", "Descricao")) "></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
