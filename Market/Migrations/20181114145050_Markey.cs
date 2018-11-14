@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Market.Migrations
 {
-    public partial class Market : Migration
+    public partial class Markey : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

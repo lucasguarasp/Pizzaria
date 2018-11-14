@@ -9,8 +9,6 @@
     //Money Euro
     $('[data-mask]').inputmask()
 
-    $("#Valor").mask("00,00");
-
     //Date range picker
     $('#reservation').daterangepicker()
     //Date range picker with time picker
@@ -65,3 +63,35 @@
         showInputs: false
     })
 })
+
+
+
+$(".edit").click(function () {
+    var dados = $(this).attr("rel").split("|");
+    $("#EditNome").val(dados[0]);
+    $("#EditQuantidade").val(dados[1]);
+    $("#EditId").val(dados[2]);
+});
+
+$(".salvar").click(function () {
+    var id = $("#EditId").val();
+    var nome = $("#EditNome").val();
+    var quantidade = $("#EditQuantidade").val();
+    var x = "";
+    $.ajax({
+        type: "POST",
+        url: '/Administrativa/EditInsumo',
+        data: {
+            'Id': id,
+            'Nome': nome,
+            'Quantidade': quantidade
+        },
+        success: function (data) {
+            alert('Enviado');
+        },
+        error: function (error) {
+            alert('Nao enviou');
+        }
+    });
+});
+

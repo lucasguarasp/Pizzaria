@@ -54,14 +54,6 @@ namespace Market.Controllers
 
         public IActionResult AddProduto()
         {
-            //IEnumerable<Categoria> categorias = _db.Categorias.ToList();
-            //IEnumerable<Insumo> insumos = _db.Insumos.ToList();
-            //ViewModelProduto viewModel = new ViewModelProduto
-            //{
-            //    Categorias = categorias,
-            //    Insumos = insumos
-            //};
-            //return View(viewModel);
 
             ViewBag.categorias = _db.Categorias.ToList();
             ViewBag.insumos = _db.Insumos.ToList();
@@ -71,29 +63,40 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduto(ViewModelProduto Prod)
+        public IActionResult AddProduto(ViewModelProduto Prod, string[] descricao)
         {
+            var lista = "";
+            var count = descricao.Length;
+            foreach (var item in descricao)
+            {
+
+                if (--count > 0)
+                {
+                    lista += item + ", ";
+                }
+                else
+                {
+                    lista += item;
+                }
+            }
+
             var produto = new Produto
             {
                 Nome = Prod.Produto.Nome,
                 Valor = Prod.Produto.Valor,
-                Descricao = Prod.Produto.Descricao,
+                Descricao = lista,
                 Foto = Prod.Produto.Foto,
                 CategoriaId = Prod.Produto.CategoriaId
             };
 
-
+            _db.Produtos.Add(produto);
 
             if (ModelState.IsValid)
             {
-                _db.Produtos.Add(produto);
-                _db.SaveChanges();
-                return RedirectToAction("AddProduto");
+            _db.SaveChanges();
             }
-            else
-            {
-                return View(produto);
-            }
+
+            return RedirectToAction("AddProduto");
         }
 
         public IActionResult AddInsumo()
@@ -110,13 +113,12 @@ namespace Market.Controllers
             _db.Insumos.Add(insumo);
             _db.HistoricoInsumos.Add(Historicoinsumo);
 
-
             if (ModelState.IsValid)
             {
                 _db.SaveChanges();
             }
-            var insumos = _db.Insumos.ToList();
-            return View(insumos);
+
+            return RedirectToAction("AddInsumo");
         }
 
 
@@ -128,11 +130,18 @@ namespace Market.Controllers
             return RedirectToAction("AddInsumo");
         }
 
-        public IActionResult EditInsumo(int Id)
+        [HttpPost]
+        public IActionResult EditInsumo(int EditId, string EditNome, double EditQuantidade)
         {
-            var insumo = _db.Insumos.Single(x => x.IdInsumo == Id);
-            _db.Insumos.Remove(insumo);
-            _db.SaveChanges();
+            var insumo = _db.Insumos.Single(x => x.IdInsumo == EditId);
+
+            if (insumo != null)
+            {
+                insumo.Nome = EditNome;
+                insumo.Quantidade = EditQuantidade;
+                _db.Entry(insumo).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
             return RedirectToAction("AddInsumo");
         }
 

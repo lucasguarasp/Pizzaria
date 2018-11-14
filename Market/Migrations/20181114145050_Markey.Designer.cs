@@ -11,8 +11,8 @@ using System;
 namespace Market.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181110223236_Market")]
-    partial class Market
+    [Migration("20181114145050_Markey")]
+    partial class Markey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
