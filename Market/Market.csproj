@@ -98,6 +98,14 @@
     <Content Include="wwwroot\Administrativa\bower_components\bootstrap\grunt\npm-shrinkwrap.json" />
     <Content Include="wwwroot\Administrativa\bower_components\bootstrap\less\.csscomb.json" />
     <Content Include="wwwroot\Administrativa\bower_components\bootstrap\package.json" />
+    <Content Include="wwwroot\Administrativa\bower_components\datatables.net-bs\.bower.json" />
+    <Content Include="wwwroot\Administrativa\bower_components\datatables.net-bs\bower.json" />
+    <Content Include="wwwroot\Administrativa\bower_components\datatables.net-bs\css\dataTables.bootstrap.css" />
+    <Content Include="wwwroot\Administrativa\bower_components\datatables.net-bs\css\dataTables.bootstrap.min.css" />
+    <Content Include="wwwroot\Administrativa\bower_components\datatables.net-bs\License.txt" />
+    <Content Include="wwwroot\Administrativa\bower_components\datatables.net\.bower.json" />
+    <Content Include="wwwroot\Administrativa\bower_components\datatables.net\bower.json" />
+    <Content Include="wwwroot\Administrativa\bower_components\datatables.net\License.txt" />
     <Content Include="wwwroot\Administrativa\bower_components\fastclick\.bower.json" />
     <Content Include="wwwroot\Administrativa\bower_components\fastclick\bower.json" />
     <Content Include="wwwroot\Administrativa\bower_components\font-awesome\.bower.json" />
@@ -1168,6 +1176,12 @@
     <None Include="wwwroot\Administrativa\bower_components\bootstrap\nuget\MyGet.ps1" />
     <None Include="wwwroot\Administrativa\bower_components\bootstrap\package.js" />
     <None Include="wwwroot\Administrativa\bower_components\bootstrap\README.md" />
+    <None Include="wwwroot\Administrativa\bower_components\datatables.net-bs\js\dataTables.bootstrap.js" />
+    <None Include="wwwroot\Administrativa\bower_components\datatables.net-bs\js\dataTables.bootstrap.min.js" />
+    <None Include="wwwroot\Administrativa\bower_components\datatables.net-bs\Readme.md" />
+    <None Include="wwwroot\Administrativa\bower_components\datatables.net\js\jquery.dataTables.js" />
+    <None Include="wwwroot\Administrativa\bower_components\datatables.net\js\jquery.dataTables.min.js" />
+    <None Include="wwwroot\Administrativa\bower_components\datatables.net\Readme.md" />
     <None Include="wwwroot\Administrativa\bower_components\fastclick\lib\fastclick.js" />
     <None Include="wwwroot\Administrativa\bower_components\fastclick\LICENSE" />
     <None Include="wwwroot\Administrativa\bower_components\fastclick\README.md" />

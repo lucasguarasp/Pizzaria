@@ -66,17 +66,15 @@ namespace Market.Controllers
         public IActionResult AddProduto(ViewModelProduto Prod, string[] descricao)
         {
             var lista = "";
-            var count = descricao.Length;
             foreach (var item in descricao)
             {
-
-                if (--count > 0)
+                if (item == descricao.Last())
                 {
-                    lista += item + ", ";
+                    lista += item;
                 }
                 else
                 {
-                    lista += item;
+                    lista += item + ", ";
                 }
             }
 
@@ -91,15 +89,26 @@ namespace Market.Controllers
 
             _db.Produtos.Add(produto);
 
-            if (ModelState.IsValid)
-            {
-            _db.SaveChanges();
-            }
+            //if (ModelState.IsValid)
+            //{
+                _db.SaveChanges();
+            //}
 
             return RedirectToAction("AddProduto");
         }
 
-        public IActionResult AddInsumo()
+        public IActionResult RemoveProduto(int Id)
+        {
+
+            var produto = _db.Produtos.Single(x => x.IdProduto == Id);
+            _db.Produtos.Remove(produto);
+            _db.SaveChanges();
+            return RedirectToAction("ListarProdutos");
+
+        }
+
+
+        public IActionResult AddInsumo(int Id)
         {
             var insumo = _db.Insumos.ToList();
             return View(insumo);
@@ -131,18 +140,70 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditInsumo(int EditId, string EditNome, double EditQuantidade)
+        public IActionResult EditInsumo(int EditId, string EditNome, double EditQuantidade, string option)
         {
             var insumo = _db.Insumos.Single(x => x.IdInsumo == EditId);
 
-            if (insumo != null)
+            switch (option)
             {
-                insumo.Nome = EditNome;
-                insumo.Quantidade = EditQuantidade;
-                _db.Entry(insumo).State = EntityState.Modified;
-                _db.SaveChanges();
+                case "adicionar":
+                    if (insumo != null)
+                    {
+                        insumo.Nome = EditNome;
+                        insumo.Quantidade += EditQuantidade;
+                        insumo.EstoqueMax += EditQuantidade;
+                        _db.Entry(insumo).State = EntityState.Modified;
+                        _db.SaveChanges();
+                    }
+                    break;
+
+                case "remover":
+                    if (insumo != null)
+                    {
+                        insumo.Nome = EditNome;
+                        insumo.Quantidade -= EditQuantidade;
+                        insumo.EstoqueMax -= EditQuantidade;
+                        _db.Entry(insumo).State = EntityState.Modified;
+                        _db.SaveChanges();
+                    }
+                    break;
+
             }
+
             return RedirectToAction("AddInsumo");
+        }
+
+
+        public IActionResult ListarProdutos()
+        //public JsonResult ListarProdutos(string tipo)
+        {
+            ViewBag.categorias = _db.Categorias.ToList();
+            var produto = _db.Produtos.Include(c => c.Categoria).ToList();
+
+            //int t = Convert.ToInt32(tipo);            
+
+            //IEnumerable<Produto> produtos = _db.Produtos.Where(p => p.IdProduto == t).Include(c => c.Categoria).ToList();
+
+            //if (tipo != null)
+            //{
+            //    var produto = _db.Produtos.Where(p => p.IdProduto == t).Include(c => c.Categoria).ToList();
+            //}
+            //else
+            //{
+            //    var produto = _db.Produtos.Include(c => c.Categoria).ToList();
+            //}
+            //ViewBag.Produtos = produtos.ToList();
+            //return Json(ViewBag.Produtos);
+
+            if (produto != null)
+            {
+                return View(produto);
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
 

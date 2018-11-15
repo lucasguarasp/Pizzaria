@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Market.Models.Produto>
+
+@{
+    ViewData["Title"] = "ListarProdutos";
+    Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
+}
+<script>
+    $("#tipo").change(function () {
+        var tipo = $("#tipo").val();
+        $.ajax({
+            url: '/Administrativa/ListarProdutos/',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                tipo: tipo
+            },
+            success: function (data) {
+
+                //var itens = "<option> --Selecione Cliente-- </option>";
+                // $.each(data, function (i, cli) {
+                //    itens += "<option value= " + cli.Value + "> " + cli.Text + " </option>";
+                // });
+                // $("#txtCliente").html(itens);
+            }
+
+        });
+    });
+</script>
+
+<section class="content-header">
+    <h1>
+        Data Tables
+        <small>advanced tables</small>
+    </h1>
+</section>
+
+<hr />
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Data Table With Full Features</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column descending" style="width: 10%;" aria-sort="ascending">Foto</th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column descending" style="width: 25%;" aria-sort="ascending">Nome</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 40%;">Descrição</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 5%;">Valor</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 10%;">Categoria</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 10%;"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr role="row" class="odd">
+                                    <td class="sorting_1">@Html.DisplayFor(modelItem => item.Foto)</td>
+                                    <td class="sorting_1">@Html.DisplayFor(modelItem => item.Nome)</td>
+                                    <td class="sorting_1">@Html.DisplayFor(modelItem => item.Descricao)</td>
+                                    <td class="sorting_1">@Html.DisplayFor(modelItem => item.Valor)</td>
+                                    <td class="sorting_1"> @Html.DisplayFor(modelItem => item.Categoria.Descricao)</td>
+
+                                    <td style="text-align: center">
+                                        <a asp-action="RemoveProduto" asp-route-id="@item.IdProduto" class="glyphicon glyphicon-trash fa-lg"></a>
+                                        <a>&emsp;</a>
+                                        <a href="#" data-toggle="modal" data-target="#modal-edit" class="glyphicon glyphicon-edit fa-lg edit">
+                                        </a>
+                                    </td>
+
+                                </tr>
+
+                                <tr role="row" class="even"></tr>
+
+
+                            }
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>

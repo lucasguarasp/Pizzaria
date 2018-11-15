@@ -5,27 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
 }
 <script>
-    //$(".cadastrar").click(function () {
-    //    var nome = $("#Nome").val();
-    //    var valor = $("#Valor").val();
-    //    var quantidade = $("#Quantidade").val();
-    //    var x = "";
-    //    $.ajax({
-    //        type: "POST",
-    //        url: '/Administrativa/AddInsumo',
-    //        data: {
-    //            'Nome': nome,
-    //            'Valor': valor,
-    //            'Quantidade': quantidade
-    //        },
-    //        success: function (data) {
-    //            alert('Enviado');
-    //        },
-    //        error: function (error) {
-    //            alert('Nao enviou');
-    //        }
-    //    });
-    //});
+
 </script>
 
 <div class="box box-info">
@@ -169,8 +149,9 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">aa</h4>
+                </button>                
+                    <h4 class="modal-title">Editar Insumo</h4>
+               
             </div>
             <form asp-controller="Administrativa" asp-action="EditInsumo">
                 <div class="modal-body">
@@ -185,18 +166,21 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-lg-8">
-                            <label>Quantidade Modificada</label>
-                            <input id="EditQuantidade" class="form-control" name="EditQuantidade" />
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-success">
-                                    <input type="radio" name="options" id="option1" autocomplete="off">Adicionar
-                                </label>
-                                <label class="btn btn-danger">
-                                    <input type="radio" name="options" id="option3" autocomplete="off">Remover
-                                </label>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <label>Quantidade Modificada</label>
+                                <input id="EditQuantidade" class="form-control" name="EditQuantidade" />
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Selecione opção</label>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-success">
+                                        <input type="radio" name="option" value="adicionar" autocomplete="off">Adicionar
+                                    </label>
+                                    <label class="btn btn-danger">
+                                        <input type="radio" name="option" value="remover" autocomplete="off">Remover
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>

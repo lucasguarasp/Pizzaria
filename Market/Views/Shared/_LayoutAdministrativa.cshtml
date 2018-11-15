@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="~/Administrativa/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="~/Administrativa/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Administrativa/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
     <!-- daterange picker -->
     <link rel="stylesheet" href="~/Administrativa/bower_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -153,13 +155,13 @@
                         <a asp-area="" asp-controller="Administrativa" asp-action="CadastroCliente"><i class="fa fa-circle-o text-green"></i> <span>Cadastro</span></a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Administrativa" asp-action="AddProduto"><i class="fa fa-circle-o text-yellow"></i> <span>ADD Produto</span></a>
+                        <a asp-area="" asp-controller="Administrativa" asp-action="AddProduto"><i class="fa fa-circle-o text-yellow"></i> <span>Adicionar Produto</span></a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Administrativa" asp-action="AddInsumo"><i class="fa fa-circle-o text-yellow"></i> <span>ADD Insumo</span></a>
+                        <a asp-area="" asp-controller="Administrativa" asp-action="ListarProdutos"><i class="fa fa-circle-o text-yellow"></i> <span>Listar Produtos</span></a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Administrativa" asp-action="AddInsumo"><i class="fa fa-circle-o text-yellow"></i> <span>ADD Insumo</span></a>
+                        <a asp-area="" asp-controller="Administrativa" asp-action="AddInsumo"><i class="fa fa-circle-o text-yellow"></i> <span>Adicionar Insumo</span></a>
                     </li>
                     <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
                 </ul>
@@ -470,6 +472,11 @@
     <script src="~/Administrativa/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
     <!-- bootstrap time picker -->
     <script src="~/Administrativa/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="~/Administrativa/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Administrativa/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
     <!-- SlimScroll -->
     <script src="~/Administrativa/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- iCheck 1.0.1 -->

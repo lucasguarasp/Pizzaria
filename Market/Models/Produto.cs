@@ -24,9 +24,8 @@ namespace Market.Models
         public string Descricao { get; set; }
         
         [Display(Name = "Foto do produto")]
-        public string Foto { get; set; }
+        public string Foto { get; set; }        
         
-        [Required]
         [Display(Name = "Categoria do produto")]
         public int CategoriaId { get; set; }
         public virtual Categoria Categoria { get; set; }        
