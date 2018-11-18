@@ -7,7 +7,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Market.Models;
+using Market.Services;
 using Market.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +19,7 @@ using Microsoft.Extensions.Options;
 
 namespace Market.Controllers
 {
+    //[Authorize]
     public class AdministrativaController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -41,7 +44,21 @@ namespace Market.Controllers
             var endereco = new Endereco { Cep = Cad.Endereco.Cep, Bairro = Cad.Endereco.Bairro, Rua = Cad.Endereco.Rua, Numero = Cad.Endereco.Numero, Cidade = Cad.Endereco.Cidade, Complemento = Cad.Endereco.Complemento };
             _db.Enderecos.Add(endereco);
 
-            var cadastro = new Cadastro { Nome = Cad.Cadastro.Nome, Email = Cad.Cadastro.Email, Cpf = Cad.Cadastro.Cpf, DataNascimento = Cad.Cadastro.DataNascimento, Password = Cad.Cadastro.Cpf, Telefone = Cad.Cadastro.Telefone, Celular = Cad.Cadastro.Celular, Sexo = Cad.Cadastro.Sexo, TipoDeUsuarioId = 2, EnderecoId = endereco.IdEndereco, Status = true };
+            var cadastro = new Cadastro
+            {
+                Nome = Cad.Cadastro.Nome,
+                Email = Cad.Cadastro.Email,
+                Cpf = Cad.Cadastro.Cpf,
+                DataNascimento = Cad.Cadastro.DataNascimento,
+                Password = HashService.Crip(Cad.Cadastro.Cpf),
+                Telefone = Cad.Cadastro.Telefone,
+                Celular = Cad.Cadastro.Celular,
+                Sexo = Cad.Cadastro.Sexo,
+                TipoDeUsuarioId = 2,
+                EnderecoId = endereco.IdEndereco,
+                Status = true
+            };
+
             _db.Cadastros.Add(cadastro);
 
             if (ModelState.IsValid)
@@ -91,7 +108,7 @@ namespace Market.Controllers
 
             //if (ModelState.IsValid)
             //{
-                _db.SaveChanges();
+            _db.SaveChanges();
             //}
 
             return RedirectToAction("AddProduto");
@@ -167,7 +184,6 @@ namespace Market.Controllers
                         _db.SaveChanges();
                     }
                     break;
-
             }
 
             return RedirectToAction("AddInsumo");
@@ -175,25 +191,8 @@ namespace Market.Controllers
 
 
         public IActionResult ListarProdutos()
-        //public JsonResult ListarProdutos(string tipo)
         {
-            ViewBag.categorias = _db.Categorias.ToList();
             var produto = _db.Produtos.Include(c => c.Categoria).ToList();
-
-            //int t = Convert.ToInt32(tipo);            
-
-            //IEnumerable<Produto> produtos = _db.Produtos.Where(p => p.IdProduto == t).Include(c => c.Categoria).ToList();
-
-            //if (tipo != null)
-            //{
-            //    var produto = _db.Produtos.Where(p => p.IdProduto == t).Include(c => c.Categoria).ToList();
-            //}
-            //else
-            //{
-            //    var produto = _db.Produtos.Include(c => c.Categoria).ToList();
-            //}
-            //ViewBag.Produtos = produtos.ToList();
-            //return Json(ViewBag.Produtos);
 
             if (produto != null)
             {

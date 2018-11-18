@@ -20,13 +20,7 @@ namespace Market.Models
         //{
 
         //}
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<TipoDeUsuario>().HasData(
-        //        new TipoDeUsuario() { IdTipoDeUsuario = 1 , Descricao = "Gerente"});
-        //}
-
+               
 
         public virtual DbSet<Cadastro> Cadastros { get; set; }
         public virtual DbSet<Endereco> Enderecos { get; set; }

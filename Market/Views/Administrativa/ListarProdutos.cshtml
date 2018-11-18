@@ -4,37 +4,14 @@
     ViewData["Title"] = "ListarProdutos";
     Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
 }
-<script>
-    $("#tipo").change(function () {
-        var tipo = $("#tipo").val();
-        $.ajax({
-            url: '/Administrativa/ListarProdutos/',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                tipo: tipo
-            },
-            success: function (data) {
 
-                //var itens = "<option> --Selecione Cliente-- </option>";
-                // $.each(data, function (i, cli) {
-                //    itens += "<option value= " + cli.Value + "> " + cli.Text + " </option>";
-                // });
-                // $("#txtCliente").html(itens);
-            }
 
-        });
-    });
-</script>
-
-<section class="content-header">
+@*<section class="content-header">
     <h1>
         Data Tables
         <small>advanced tables</small>
     </h1>
-</section>
-
-<hr />
+</section>*@
 
 <div class="box">
     <div class="box-header">
