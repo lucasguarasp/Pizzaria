@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Market.Models
 {
-    public class Cadastro
+    public class Usuario
     {
         [Key]
         public int IdCadastro { get; set; }

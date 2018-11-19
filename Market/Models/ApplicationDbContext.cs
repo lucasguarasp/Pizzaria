@@ -16,13 +16,13 @@ namespace Market.Models
         {
         }
 
-        //protected override void Seed(Market.Models.ApplicationDbContext context)
-        //{
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            
+        }
 
-        //}
-               
 
-        public virtual DbSet<Cadastro> Cadastros { get; set; }
+        public virtual DbSet<Usuario> Cadastros { get; set; }
         public virtual DbSet<Endereco> Enderecos { get; set; }
         public virtual DbSet<TipoDeUsuario> TipoDeUsuarios { get; set; }
 
@@ -30,7 +30,8 @@ namespace Market.Models
         public virtual DbSet<Tamanho> Tamanhos { get; set; }
         public virtual DbSet<Categoria> Categorias { get; set; }
         public virtual DbSet<Insumo> Insumos { get; set; }
-        public virtual DbSet<HistoricoInsumo> HistoricoInsumos { get; set; }        
+        public virtual DbSet<HistoricoInsumo> HistoricoInsumos { get; set; }
+        public virtual DbSet<ProdutoHasInsumo> ProdutoHasInsumos { get; set; }
 
 
     }

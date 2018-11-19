@@ -20,7 +20,7 @@ namespace Market.ViewModels
         [DataType(DataType.Password)]
         public string Senha { get; set; }
 
-        public Cadastro Entrar(ApplicationDbContext _db)
+        public Usuario Entrar(ApplicationDbContext _db)
         {
             return _db.Cadastros.Count(u => u.Email.Equals(Login) || u.Cpf.Equals(Login)) > 0 ? _db.Cadastros.Single(u => u.Email.Equals(Login) || u.Cpf.Equals(Login)) : null;
         }

@@ -8,7 +8,7 @@ namespace Market.ViewModels
 {
     public class ViewModelCadastro
     {
-        public Cadastro Cadastro { get; set; }
+        public Usuario Cadastro { get; set; }
         public Endereco Endereco { get; set; }
     }
 }

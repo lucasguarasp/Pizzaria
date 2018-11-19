@@ -8,42 +8,44 @@ namespace Market.Services
 {
     public class UsuarioService
     {
-        public async Task GerarCookie(Cadastro usuario, bool lembrarSenha = false)
-        {
-            var dispositivoAtual = _DispositivoConectadoService.GetDispositivoAtual();
-            var isConectado = _DispositivoConectadoService.IsConectado(usuario.UsuarioId);
-            if (!isConectado)
-                _DispositivoConectadoService.ConectaDispositivo(usuario.UsuarioId);
-            if (usuario.Imagem == null)
-                usuario.Imagem = new Imagem();
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, usuario.NomeUsuario),
-                new Claim(ClaimTypes.Email, usuario.Email),
-                new Claim(ClaimTypes.DateOfBirth, usuario.DataNascimento.ToShortDateString()),
-                new Claim("ImagemPerfil", string.IsNullOrEmpty(usuario.Imagem.Caminho) ? ImagemHelper.CaminnhoImagemPerfilDefault : usuario.Imagem.Caminho),
-                new Claim("DispositivoConectado", dispositivoAtual.ToString()),
-                new Claim(ClaimsHelper.UsuarioId, usuario.UsuarioId.ToString()),
-                new Claim(ClaimTypes.Role, Enum.GetName(typeof(PerfilUsuarioEnum),usuario.PerfilUsuario))
-            };
+        //readonly IDispositivoConectadoService _DispositivoConectadoService;
 
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //public async Task GerarCookie(Usuario usuario, bool lembrarSenha = false)
+        //{
+        //    var dispositivoAtual = _DispositivoConectadoService.GetDispositivoAtual();
+        //    var isConectado = _DispositivoConectadoService.IsConectado(usuario.UsuarioId);
+        //    if (!isConectado)
+        //        _DispositivoConectadoService.ConectaDispositivo(usuario.UsuarioId);
+        //    if (usuario.Imagem == null)
+        //        usuario.Imagem = new Imagem();
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.Name, usuario.NomeUsuario),
+        //        new Claim(ClaimTypes.Email, usuario.Email),
+        //        new Claim(ClaimTypes.DateOfBirth, usuario.DataNascimento.ToShortDateString()),
+        //        new Claim("ImagemPerfil", string.IsNullOrEmpty(usuario.Imagem.Caminho) ? ImagemHelper.CaminnhoImagemPerfilDefault : usuario.Imagem.Caminho),
+        //        new Claim("DispositivoConectado", dispositivoAtual.ToString()),
+        //        new Claim(ClaimsHelper.UsuarioId, usuario.UsuarioId.ToString()),
+        //        new Claim(ClaimTypes.Role, Enum.GetName(typeof(PerfilUsuarioEnum),usuario.PerfilUsuario))
+        //    };
 
-            var authProperties = (lembrarSenha) ?
-            new AuthenticationProperties
-            {
-                IsPersistent = true
-            } : new AuthenticationProperties
-            {
-                IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
-            };
+        //    var claimsIdentity = new ClaimsIdentity(
+        //        claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            await _HttpContextAccessor.HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
-        }
+        //    var authProperties = (lembrarSenha) ?
+        //    new AuthenticationProperties
+        //    {
+        //        IsPersistent = true
+        //    } : new AuthenticationProperties
+        //    {
+        //        IsPersistent = true,
+        //        ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+        //    };
+
+        //    await _HttpContextAccessor.HttpContext.SignInAsync(
+        //        CookieAuthenticationDefaults.AuthenticationScheme,
+        //        new ClaimsPrincipal(claimsIdentity),
+        //        authProperties);
+        //}
     }
 }

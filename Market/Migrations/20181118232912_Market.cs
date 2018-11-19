@@ -170,6 +170,33 @@ namespace Market.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProdutoHasInsumos",
+                columns: table => new
+                {
+                    IdProdutoHasInsumo = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    InsumoId = table.Column<int>(nullable: false),
+                    ProdutoId = table.Column<int>(nullable: false),
+                    Quantidade = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProdutoHasInsumos", x => x.IdProdutoHasInsumo);
+                    table.ForeignKey(
+                        name: "FK_ProdutoHasInsumos_Insumos_InsumoId",
+                        column: x => x.InsumoId,
+                        principalTable: "Insumos",
+                        principalColumn: "IdInsumo",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProdutoHasInsumos_Produtos_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "Produtos",
+                        principalColumn: "IdProduto",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cadastros_EnderecoId",
                 table: "Cadastros",
@@ -179,6 +206,16 @@ namespace Market.Migrations
                 name: "IX_Cadastros_TipoDeUsuarioId",
                 table: "Cadastros",
                 column: "TipoDeUsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProdutoHasInsumos_InsumoId",
+                table: "ProdutoHasInsumos",
+                column: "InsumoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProdutoHasInsumos_ProdutoId",
+                table: "ProdutoHasInsumos",
+                column: "ProdutoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produtos_CategoriaId",
@@ -205,16 +242,19 @@ namespace Market.Migrations
                 name: "HistoricoInsumos");
 
             migrationBuilder.DropTable(
-                name: "Insumos");
-
-            migrationBuilder.DropTable(
-                name: "Produtos");
+                name: "ProdutoHasInsumos");
 
             migrationBuilder.DropTable(
                 name: "Enderecos");
 
             migrationBuilder.DropTable(
                 name: "TipoDeUsuarios");
+
+            migrationBuilder.DropTable(
+                name: "Insumos");
+
+            migrationBuilder.DropTable(
+                name: "Produtos");
 
             migrationBuilder.DropTable(
                 name: "Tamanhos");

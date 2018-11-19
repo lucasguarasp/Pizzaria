@@ -44,7 +44,7 @@ namespace Market.Controllers
             var endereco = new Endereco { Cep = Cad.Endereco.Cep, Bairro = Cad.Endereco.Bairro, Rua = Cad.Endereco.Rua, Numero = Cad.Endereco.Numero, Cidade = Cad.Endereco.Cidade, Complemento = Cad.Endereco.Complemento };
             _db.Enderecos.Add(endereco);
 
-            var cadastro = new Cadastro
+            var cadastro = new Usuario
             {
                 Nome = Cad.Cadastro.Nome,
                 Email = Cad.Cadastro.Email,
@@ -80,7 +80,8 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduto(ViewModelProduto Prod, string[] descricao)
+        public IActionResult AddProduto(string Nome, double Valor, int CategoriaId, string[] descricao, string Foto, double Quantidade)
+        //public IActionResult AddProduto(string Nome, string Valor, string CategoriaId, string Descricao, string Foto, string Quantidade, string[] descricao)
         {
             var lista = "";
             foreach (var item in descricao)
@@ -97,14 +98,29 @@ namespace Market.Controllers
 
             var produto = new Produto
             {
-                Nome = Prod.Produto.Nome,
-                Valor = Prod.Produto.Valor,
+                Nome = Nome,
+                Valor = Valor,
                 Descricao = lista,
-                Foto = Prod.Produto.Foto,
-                CategoriaId = Prod.Produto.CategoriaId
+                Foto = Foto,
+                CategoriaId = CategoriaId
             };
 
             _db.Produtos.Add(produto);
+
+            foreach (var item in descricao)
+            {
+                var itemId = _db.Insumos.Single(i => i.Nome.Equals(item));
+
+                var produtoInsumo = new ProdutoHasInsumo
+                {
+                    ProdutoId = produto.IdProduto,
+                    InsumoId = itemId.IdInsumo,
+                    Quantidade = Quantidade
+                };
+
+                _db.ProdutoHasInsumos.Add(produtoInsumo);
+            }
+
 
             //if (ModelState.IsValid)
             //{
