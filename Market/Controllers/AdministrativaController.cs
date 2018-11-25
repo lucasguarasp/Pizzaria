@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,6 +22,7 @@ namespace Market.Controllers
     public class AdministrativaController : Controller
     {
         private readonly ApplicationDbContext _db;
+
         public AdministrativaController(ApplicationDbContext db)
         {
             _db = db;
@@ -71,7 +71,6 @@ namespace Market.Controllers
 
         public IActionResult AddProduto()
         {
-
             ViewBag.categorias = _db.Categorias.ToList();
             ViewBag.insumos = _db.Insumos.ToList();
 
@@ -80,9 +79,9 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduto(string Nome, double Valor, int CategoriaId, string[] descricao, string Foto, double Quantidade)
-        //public IActionResult AddProduto(string Nome, string Valor, string CategoriaId, string Descricao, string Foto, string Quantidade, string[] descricao)
+        public IActionResult AddProduto(string Nome, double Valor, int CategoriaId, string[] descricao, IFormFile Foto, double Quantidade)
         {
+
             var lista = "";
             foreach (var item in descricao)
             {
@@ -101,9 +100,16 @@ namespace Market.Controllers
                 Nome = Nome,
                 Valor = Valor,
                 Descricao = lista,
-                Foto = Foto,
                 CategoriaId = CategoriaId
             };
+
+            Task<string> foto = ImagemService.SalvarImagemProduto(Foto);
+
+
+            if (foto.Result != null)
+            {
+                produto.Foto = foto.Result;
+            }
 
             _db.Produtos.Add(produto);
 
@@ -121,25 +127,55 @@ namespace Market.Controllers
                 _db.ProdutoHasInsumos.Add(produtoInsumo);
             }
 
-
-            //if (ModelState.IsValid)
-            //{
-            _db.SaveChanges();
-            //}
+            if (ModelState.IsValid)
+            {
+                _db.SaveChanges();
+            }
 
             return RedirectToAction("AddProduto");
         }
 
-        public IActionResult RemoveProduto(int Id)
+        public IActionResult ListarProdutos()
         {
+            var produto = _db.Produtos.Include(c => c.Categoria).ToList();
+           // ViewData["ProdutoHasInsumo"] = _db.ProdutoHasInsumos.Include(i => i.Insumo).ToList();
 
-            var produto = _db.Produtos.Single(x => x.IdProduto == Id);
-            _db.Produtos.Remove(produto);
-            _db.SaveChanges();
-            return RedirectToAction("ListarProdutos");
+            if (produto != null)
+            {
+                return View(produto);
+            }
+            else
+            {
+                return View();
+            }
 
         }
 
+        public JsonResult ProdutoHasInsumo(int Id)
+        {
+            var ProdutoHasInsumo  = _db.ProdutoHasInsumos.Include(i => i.Insumo).Where(c => c.ProdutoId==Id).ToList();
+
+            return Json(ProdutoHasInsumo);
+        }
+
+        public IActionResult RemoveProduto(int Id)
+        {
+            var produto = _db.Produtos.Single(x => x.IdProduto == Id);
+            _db.Produtos.Remove(produto);
+
+            if (produto.Foto != null)
+            {
+                var File = string.Concat(@"wwwroot", produto.Foto.Replace("~", ""));
+
+                if (System.IO.File.Exists(File))
+                {
+                    System.IO.File.Delete(File);
+                }
+            }
+
+            _db.SaveChanges();
+            return RedirectToAction("ListarProdutos");
+        }
 
         public IActionResult AddInsumo(int Id)
         {
@@ -204,23 +240,6 @@ namespace Market.Controllers
 
             return RedirectToAction("AddInsumo");
         }
-
-
-        public IActionResult ListarProdutos()
-        {
-            var produto = _db.Produtos.Include(c => c.Categoria).ToList();
-
-            if (produto != null)
-            {
-                return View(produto);
-            }
-            else
-            {
-                return View();
-            }
-
-        }
-
 
 
 

@@ -16,9 +16,9 @@ namespace Market.Models
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+          
         }
 
 
@@ -32,6 +32,7 @@ namespace Market.Models
         public virtual DbSet<Insumo> Insumos { get; set; }
         public virtual DbSet<HistoricoInsumo> HistoricoInsumos { get; set; }
         public virtual DbSet<ProdutoHasInsumo> ProdutoHasInsumos { get; set; }
+        public virtual DbSet<Imagem> Imagems { get; set; }
 
 
     }

@@ -6,12 +6,13 @@
 }
 
 
+
 @*<section class="content-header">
-    <h1>
-        Data Tables
-        <small>advanced tables</small>
-    </h1>
-</section>*@
+        <h1>
+            Data Tables
+            <small>advanced tables</small>
+        </h1>
+    </section>*@
 
 <div class="box">
     <div class="box-header">
@@ -25,19 +26,19 @@
                     <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                         <thead>
                             <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column descending" style="width: 10%;" aria-sort="ascending">Foto</th>
-                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column descending" style="width: 25%;" aria-sort="ascending">Nome</th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 40%;">Descrição</th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column descending" style="width: 1%;" aria-sort="ascending">Foto</th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column descending" style="width: 33%;" aria-sort="ascending">Nome</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50%;">Descrição</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 5%;">Valor</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 10%;">Categoria</th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 10%;"> </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 1%;"> </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr role="row" class="odd">
-                                    <td class="sorting_1">@Html.DisplayFor(modelItem => item.Foto)</td>
+                                    <td class="sorting_1"><img src="@Url.Content(item.Foto)" class="direct-chat-img" /></td>
                                     <td class="sorting_1">@Html.DisplayFor(modelItem => item.Nome)</td>
                                     <td class="sorting_1">@Html.DisplayFor(modelItem => item.Descricao)</td>
                                     <td class="sorting_1">@Html.DisplayFor(modelItem => item.Valor)</td>
@@ -45,15 +46,16 @@
 
                                     <td style="text-align: center">
                                         <a asp-action="RemoveProduto" asp-route-id="@item.IdProduto" class="glyphicon glyphicon-trash fa-lg"></a>
-                                        <a>&emsp;</a>
-                                        <a href="#" data-toggle="modal" data-target="#modal-edit" class="glyphicon glyphicon-edit fa-lg edit">
+                                        @*<a>&emsp;</a>*@
+                                    </td>
+                                    <td style="text-align: center">
+                                        <a href="#" id="@item.IdProduto" data-toggle="modal" data-target="#modal-edit" class="glyphicon glyphicon-edit fa-lg editProdutoHasInsumo">
                                         </a>
                                     </td>
 
                                 </tr>
 
                                 <tr role="row" class="even"></tr>
-
 
                             }
                         </tbody>
@@ -66,3 +68,83 @@
     </div>
     <!-- /.box-body -->
 </div>
+
+
+<!-- /.modal EDIT-->
+<div class="modal fade" id="modal-edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Editar Produto</h4>
+
+            </div>
+            <form asp-controller="Administrativa" asp-action="#">
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @*@{
+                            if (ViewData["ProdHasInsumo"] != null)
+                            {
+
+                                foreach (var item in ViewData["ProdHasInsumo"] as List<ProdutoHasInsumo>)
+                                {
+                                    <label>@item.Insumo.Nome</label>
+                                    @Html.DisplayFor(modelItem => item.Insumo.Nome)
+                                }
+
+                            }
+                        }*@
+
+                    <label id="produtoaa"></label>
+
+                    @*<div class="form-group">
+                            <label>Nome</label>
+                            <input id="EditNome" class="form-control" name="EditNome" />
+                        </div>
+                        <div class="form-group">
+                            <label>Quantidade Atual</label>
+                            <input id="EditQuantidade" class="form-control" name="EditQuantidade" disabled />
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label>Quantidade Modificada</label>
+                                    <input id="EditQuantidade" class="form-control" name="EditQuantidade" />
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Selecione opção</label>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-success">
+                                            <input type="radio" name="option" value="adicionar" autocomplete="off">Adicionar
+                                        </label>
+                                        <label class="btn btn-danger">
+                                            <input type="radio" name="option" value="remover" autocomplete="off">Remover
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    <div class="form-group row">
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                    <button class="btn btn-primary" name="EditId" id="EditId">Salvar</button>
+
+                </div>
+            </form>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal EDIT-->
