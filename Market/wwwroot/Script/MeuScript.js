@@ -124,7 +124,11 @@ $(".editProdutoHasInsumo").click(function () {
         success: function (data) {
             var insumo = "";
             $(data).each(function (i) {
-                insumo += "<p>" + data[i].insumo.nome + "</p><input id='Insumo" + i + "' class='form-control' />";
+                insumo += "<p>" + data[i].insumo.nome + "</p><input id='Insumo" + i + "' class='form-control'/>";
+
+                $(document).ready(function () {
+                    $("#Insumo" + i + "").val(data[i].quantidade);
+                });
             });
 
             $("#produtoaa").html(insumo);
@@ -155,13 +159,12 @@ $('#selectInsumos').change(function () {
 function myFunction(recebe, i) {
 
     if (recebe.value !== "") {
-       // itens[i] = recebe.value;
-        itens[i] = "<option selected value= " +recebe.value + "> "+" </option>";
+        itens[i] = "<option selected value= " + recebe.value + "> " + " </option>";
     } else {
         itens.value = "";
-    } 
+    }
     $(document).ready(function () {
-       // $("#Quantidade").val(itens);
+        // $("#Quantidade").val(itens);
         $("#Quantidade").html(itens);
     });
 }

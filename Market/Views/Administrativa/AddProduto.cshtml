@@ -27,8 +27,11 @@
 
                 <div class="col-sm-4">
                     <label asp-for="Valor" class="control-label"></label>
-                    <input asp-for="Valor" class="form-control ValorReais" />
-                    <span asp-validation-for="Valor" class="text-danger"></span>
+                    <div class="input-group">
+                        <span class="input-group-addon">R$</span>
+                        <input asp-for="Valor" class="form-control ValorReais" />
+                        <span asp-validation-for="Valor" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="col-sm-4">
                     <label asp-for="CategoriaId" class="control-label"></label>
