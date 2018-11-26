@@ -63,9 +63,9 @@
         showInputs: false
     });
 
-     //Dinheiro reais
+    //Dinheiro reais
     $(".ValorReais").maskMoney({ prefix: '', allowNegative: false, thousands: ',', decimal: ',', affixesStay: false });
-   
+
 });
 
 
@@ -137,27 +137,31 @@ $(".editProdutoHasInsumo").click(function () {
     });
 });
 
+var itens;
 $('#selectInsumos').change(function () {
     var str = "";
-    var id = "";   
-   
+    var id = "";
+
     $("#selectInsumos option:selected").each(function (i) {
-        id = $(this).text();
-        str += $(this).text() + "<p><input type='text' name='Quantidade' id='Quantidade' class='form-control' placeholder='Quantidade do produto'/> </p>";
-       
+        id = "Quantidade" + i + "";
+        str += $(this).text() + "<p><input type='text'  name='" + id + "' id='" + id + "' class='form-control' onblur='myFunction(" + id + ", " + i + ")'  placeholder='Quantidade do produto'/> </p>";
+        itens = new Array(i);
     });
     $("#Insumo").html(str);
-    
-})
-    .trigger("change");
 
-$(document).ready(function () {
-    var teste = [];
-    $("#Quantidade").each(function () {
-        teste[$(this)] = $(this).val();
-    });
-
-    teste += $('#Quantidade').val() + ",";
-    $("#Eviar").html(teste);
 });
 
+
+function myFunction(recebe, i) {
+
+    if (recebe.value !== "") {
+       // itens[i] = recebe.value;
+        itens[i] = "<option selected value= " +recebe.value + "> "+" </option>";
+    } else {
+        itens.value = "";
+    } 
+    $(document).ready(function () {
+       // $("#Quantidade").val(itens);
+        $("#Quantidade").html(itens);
+    });
+}

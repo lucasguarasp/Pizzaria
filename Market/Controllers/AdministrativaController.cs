@@ -79,7 +79,7 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduto(string Nome, double Valor, int CategoriaId, string[] descricao, IFormFile Foto, double Quantidade)
+        public IActionResult AddProduto(string Nome, double Valor, int CategoriaId, string[] descricao, IFormFile Foto, string[] Quantidade)
         {
 
             var lista = "";
@@ -113,6 +113,7 @@ namespace Market.Controllers
 
             _db.Produtos.Add(produto);
 
+            int cont = 0;
             foreach (var item in descricao)
             {
                 var itemId = _db.Insumos.Single(i => i.Nome.Equals(item));
@@ -121,10 +122,11 @@ namespace Market.Controllers
                 {
                     ProdutoId = produto.IdProduto,
                     InsumoId = itemId.IdInsumo,
-                    Quantidade = Quantidade
+                    Quantidade = Convert.ToDouble(Quantidade[cont])
                 };
 
                 _db.ProdutoHasInsumos.Add(produtoInsumo);
+                cont++;
             }
 
             if (ModelState.IsValid)
