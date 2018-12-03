@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Market.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Categorias";
+    Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
+}
+
+<script>
+    function Mudarestado(el) {
+        var display = document.getElementById(el).style.display;
+        if (display == "none") {
+            document.getElementById(el).style.display = 'block';
+            document.getElementById('addBtn').style.display = 'block';
+        } else {
+            document.getElementById(el).style.display = 'none';
+            document.getElementById('addBtn').style.display = 'none';
+        }
+    }
+</script>
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Categorias</h3>
+    </div>
+    <form asp-action="AddCategoria" class="form-horizontal" method="post" enctype="multipart/form-data">
+        <div class="box-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div>
+                        <a href="#" class="btn btn-primary btn-block" onclick="Mudarestado('addCategoria')"><i class="glyphicon glyphicon-plus"></i> Nova Categoria de Produtos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="addCategoria" style="display:none">
+                <div class="col-sm-12">
+                    <label class="control-label">Nome da categoria</label>
+                    <input name="Descricao" class="form-control" />
+                </div>
+            </div>
+            <div class="box-footer" id="addBtn" style="display:none">
+                <button type="submit" value="Create" class="btn btn-info pull-right">Adicionar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Categorias de Produtos</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <th style="width: 90%">
+                        @Html.DisplayName("Categoria")
+                    </th>
+                    <th style="width: 5%; text-align: center">
+                        @Html.DisplayName("Editar")
+                    </th>
+                    <th style="width: 5%; text-align: center">
+                        @Html.DisplayName("")
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                    </td>
+
+                    <td style="text-align: center">
+                        <a asp-action="RemoveCategoria" asp-route-id="@item.IdCategoria" class="glyphicon glyphicon-trash fa-lg"></a>
+                        
+                    </td>
+
+                    <td style="text-align: center">
+                        <a href="#" data-toggle="modal" data-target="#modal-edit" class="glyphicon glyphicon-edit fa-lg editInsumo"
+                           rel="">
+                        </a>
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>

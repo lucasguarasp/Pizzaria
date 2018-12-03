@@ -76,6 +76,23 @@ namespace Market.Migrations
                     b.ToTable("HistoricoInsumos");
                 });
 
+            modelBuilder.Entity("Market.Models.Imagem", b =>
+                {
+                    b.Property<int>("ImagemId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Caminho");
+
+                    b.Property<DateTime>("DataUpload")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome");
+
+                    b.HasKey("ImagemId");
+
+                    b.ToTable("Imagems");
+                });
+
             modelBuilder.Entity("Market.Models.Insumo", b =>
                 {
                     b.Property<int>("IdInsumo")
@@ -93,6 +110,26 @@ namespace Market.Migrations
                     b.HasKey("IdInsumo");
 
                     b.ToTable("Insumos");
+                });
+
+            modelBuilder.Entity("Market.Models.Medida", b =>
+                {
+                    b.Property<int>("IdMedida")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CategoriaId");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.Property<string>("Sigla")
+                        .IsRequired();
+
+                    b.HasKey("IdMedida");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.ToTable("Tamanhos");
                 });
 
             modelBuilder.Entity("Market.Models.Produto", b =>
@@ -141,23 +178,6 @@ namespace Market.Migrations
                     b.HasIndex("ProdutoId");
 
                     b.ToTable("ProdutoHasInsumos");
-                });
-
-            modelBuilder.Entity("Market.Models.Tamanho", b =>
-                {
-                    b.Property<int>("IdTamanho")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("CategoriaId");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired();
-
-                    b.HasKey("IdTamanho");
-
-                    b.HasIndex("CategoriaId");
-
-                    b.ToTable("Tamanhos");
                 });
 
             modelBuilder.Entity("Market.Models.TipoDeUsuario", b =>
@@ -212,6 +232,14 @@ namespace Market.Migrations
                     b.ToTable("Cadastros");
                 });
 
+            modelBuilder.Entity("Market.Models.Medida", b =>
+                {
+                    b.HasOne("Market.Models.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Market.Models.Produto", b =>
                 {
                     b.HasOne("Market.Models.Categoria", "Categoria")
@@ -219,7 +247,7 @@ namespace Market.Migrations
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Market.Models.Tamanho", "Tamanho")
+                    b.HasOne("Market.Models.Medida", "Tamanho")
                         .WithMany()
                         .HasForeignKey("TamanhoId");
                 });
@@ -235,13 +263,6 @@ namespace Market.Migrations
                         .WithMany()
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Market.Models.Tamanho", b =>
-                {
-                    b.HasOne("Market.Models.Categoria", "Categoria")
-                        .WithMany()
-                        .HasForeignKey("CategoriaId");
                 });
 
             modelBuilder.Entity("Market.Models.Usuario", b =>

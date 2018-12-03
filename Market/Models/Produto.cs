@@ -32,7 +32,7 @@ namespace Market.Models
 
         [Display(Name = "Tamanho do produto")]
         public int? TamanhoId { get; set; }
-        public virtual Tamanho Tamanho { get; set; }
+        public virtual Medida Tamanho { get; set; }
 
     }
 }

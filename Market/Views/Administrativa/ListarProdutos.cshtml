@@ -7,12 +7,20 @@
 
 
 
+<script>
+        $(document).ready(function () {
+            $('.data-table').dataTable();
+        });
+</script>
+
+
 @*<section class="content-header">
         <h1>
             Data Tables
             <small>advanced tables</small>
         </h1>
     </section>*@
+
 
 <div class="box">
     <div class="box-header">
@@ -82,9 +90,9 @@
             </div>
             <form asp-controller="Administrativa" asp-action="#">
                 <div class="modal-body">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>                   
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    <label id="produtoaa"></label> 
+                    <label id="produto"></label>
 
                 </div>
                 <div class="modal-footer">
@@ -100,3 +108,170 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal EDIT-->
+
+
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Hover Data Table</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                <div class="col-sm-12">
+                    <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                        <thead>
+                            <tr role="row"><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending">Rendering engine</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Browser</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Platform(s)</th><th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column descending" aria-sort="ascending">Engine version</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">CSS grade</th></tr>
+                        </thead>
+                        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <tr role="row" class="odd">
+                                <td class="">KHTML</td>
+                                <td class="">Konqureror 3.1</td>
+                                <td class="">KDE 3.1</td>
+                                <td class="sorting_1">3.1</td>
+                                <td>C</td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="">KHTML</td>
+                                <td class="">Konqureror 3.3</td>
+                                <td class="">KDE 3.3</td>
+                                <td class="sorting_1">3.3</td>
+                                <td>A</td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="">KHTML</td>
+                                <td class="">Konqureror 3.5</td>
+                                <td class="">KDE 3.5</td>
+                                <td class="sorting_1">3.5</td>
+                                <td>A</td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="">Trident</td>
+                                <td class="">
+                                    Internet
+                                    Explorer 4.0
+                                </td>
+                                <td class="">Win 95+</td>
+                                <td class="sorting_1"> 4</td>
+                                <td>X</td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="">Trident</td>
+                                <td class="">
+                                    Internet
+                                    Explorer 5.0
+                                </td>
+                                <td class="">Win 95+</td>
+                                <td class="sorting_1">5</td>
+                                <td>C</td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="">Trident</td>
+                                <td class="">
+                                    Internet
+                                    Explorer 5.5
+                                </td>
+                                <td class="">Win 95+</td>
+                                <td class="sorting_1">5.5</td>
+                                <td>A</td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="">Trident</td>
+                                <td class="">AOL browser (AOL desktop)</td>
+                                <td class="">Win XP</td>
+                                <td class="sorting_1">6</td>
+                                <td>A</td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="">Trident</td>
+                                <td class="">
+                                    Internet
+                                    Explorer 6
+                                </td>
+                                <td class="">Win 98+</td>
+                                <td class="sorting_1">6</td>
+                                <td>A</td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="">Trident</td>
+                                <td class="">Internet Explorer 7</td>
+                                <td class="">Win XP SP2+</td>
+                                <td class="sorting_1">7</td>
+                                <td>A</td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="">Presto</td>
+                                <td class="">Nintendo DS browser</td>
+                                <td class="">Nintendo DS</td>
+                                <td class="sorting_1">8.5</td>
+                                <td>C/A<sup>1</sup></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr><th rowspan="1" colspan="1">Rendering engine</th><th rowspan="1" colspan="1">Browser</th><th rowspan="1" colspan="1">Platform(s)</th><th rowspan="1" colspan="1">Engine version</th><th rowspan="1" colspan="1">CSS grade</th></tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 41 to 50 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button previous" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>

@@ -113,6 +113,7 @@ $(function () {
     });
 });
 
+//Edit insumos do produto
 $(".editProdutoHasInsumo").click(function () {
     var id = $(this).attr("id");
     $.ajax({
@@ -131,8 +132,7 @@ $(".editProdutoHasInsumo").click(function () {
                 });
             });
 
-            $("#produtoaa").html(insumo);
-
+            $("#produto").html(insumo);
             //alert('Enviado');
         },
         error: function (error) {
@@ -141,6 +141,7 @@ $(".editProdutoHasInsumo").click(function () {
     });
 });
 
+//Coloca inputs para insumos selecionados
 var itens;
 $('#selectInsumos').change(function () {
     var str = "";
@@ -155,16 +156,14 @@ $('#selectInsumos').change(function () {
 
 });
 
-
+//salva array dos inputs dos insumos e colocar dentro de um select(Quantidade)
 function myFunction(recebe, i) {
-
     if (recebe.value !== "") {
         itens[i] = "<option selected value= " + recebe.value + "> " + " </option>";
     } else {
         itens.value = "";
     }
     $(document).ready(function () {
-        // $("#Quantidade").val(itens);
         $("#Quantidade").html(itens);
     });
 }
