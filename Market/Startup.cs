@@ -30,9 +30,7 @@ namespace Market
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddSingleton<IFileProvider>(
-            //    new PhysicalFileProvider(
-            //        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+         
 
             services.AddMvc();
 
@@ -40,7 +38,7 @@ namespace Market
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext _db)
         {
             app.UseAuthentication();
 
@@ -61,11 +59,11 @@ namespace Market
             {
                 routes.MapRoute(
                     name: "default",
-                    //template: "{controller=Administrativa}/{action=Index}/{id?}");
-                    template: "{controller=Usuario}/{action=Login}/{id?}");
+                    template: "{controller=Administrativa}/{action=Index}/{id?}");
+                    //template: "{controller=Usuario}/{action=Login}/{id?}");
             });
 
-
+            InitializationDb.Initialize(_db);
 
         }
 

@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Market.Models.Produto>
+
+@{
+    ViewData["Title"] = "ListarProdutos";
+    Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
+}
+
+
+<div class="box box-info">
+    <div class="box-header">
+        <h4 class="box-title">Produtos</h4>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-hover table-bordered dataTable" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr role="row">
+                                <th style="width: 1%;">Foto</th>
+                                <th style="width: 22%;">Nome</th>
+                                <th style="width: 45%;">Descrição</th>
+                                <th style="width: 5%;">Valor</th>
+                                <th style="width: 10%;">Categoria</th>
+                                <th style="width: 15%;">Medida</th>
+                                <th style="width: 1%;"></th>
+                                <th style="width: 1%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr role="row" class="odd">
+                                    <td><img src="@Url.Content(item.Foto)" class="direct-chat-img" /></td>
+                                    <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Valor)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Categoria.Descricao)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Tamanho.Nome)</td>
+
+                                    <td style="text-align: center">
+                                        <a asp-action="RemoveProduto" asp-route-id="@item.IdProduto" class="glyphicon glyphicon-trash fa-lg"></a>
+
+                                    </td>
+                                    <td style="text-align: center">
+                                        <a href="#" id="@item.IdProduto" data-toggle="modal" data-target="#modal-edit" class="glyphicon glyphicon-edit fa-lg editProdutoHasInsumo"
+                                           rel="@item.Nome|@item.Foto|@item.Valor|@item.Categoria.Descricao|@item.Tamanho.Nome">
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>
+
+<!-- /.modal EDIT-->
+<div class="modal fade" id="modal-edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-yellow">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="widget-user-image" id="foto">
+                        @*<img class="img-circle" src="~/user7-128x128.jpg" alt="User Avatar">*@
+                    </div>
+                    <!-- /.widget-user-image -->
+                    <h4 class="widget-user-username" id="title"></h4>
+                    <h6 class="widget-user-desc">&ensp;</h6>
+                </div>
+                <div class="box-footer no-padding">
+                </div>
+            </div>
+            <!-- /.widget-user -->
+
+            <form asp-controller="Administrativa" asp-action="#">
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <div id="valor"></div>
+                        <div id="categoriaP"></div>
+                        <div id="medida"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div id="insumos"></div>
+                    </div>
+
+                    <div class="form-group row">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                        <button class="btn btn-primary" name="EditId" id="EditId">Salvar</button>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal EDIT-->
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

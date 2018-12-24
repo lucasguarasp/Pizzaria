@@ -112,6 +112,24 @@ namespace Market.Migrations
                     b.ToTable("Insumos");
                 });
 
+            modelBuilder.Entity("Market.Models.InsumoHasCategoria", b =>
+                {
+                    b.Property<int>("IdInsumoHasCategoria")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CategoriaId");
+
+                    b.Property<int>("InsumoId");
+
+                    b.HasKey("IdInsumoHasCategoria");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.HasIndex("InsumoId");
+
+                    b.ToTable("InsumoHasCategorias");
+                });
+
             modelBuilder.Entity("Market.Models.Medida", b =>
                 {
                     b.Property<int>("IdMedida")
@@ -129,7 +147,7 @@ namespace Market.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("Tamanhos");
+                    b.ToTable("Medidas");
                 });
 
             modelBuilder.Entity("Market.Models.Produto", b =>
@@ -230,6 +248,19 @@ namespace Market.Migrations
                     b.HasIndex("TipoDeUsuarioId");
 
                     b.ToTable("Cadastros");
+                });
+
+            modelBuilder.Entity("Market.Models.InsumoHasCategoria", b =>
+                {
+                    b.HasOne("Market.Models.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Market.Models.Insumo", "Insumo")
+                        .WithMany()
+                        .HasForeignKey("InsumoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Market.Models.Medida", b =>

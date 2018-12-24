@@ -69,12 +69,51 @@
 });
 
 
+//Tabela
+$(function () {
+    $('#example1').DataTable();
+    $('#example2').DataTable({
+        'paging': true,
+        'lengthChange': false,
+        'searching': false,
+        'ordering': true,
+        'info': true,
+        'autoWidth': false
+    });
+});
+
 //Get insumo
 $(".editInsumo").click(function () {
     var dados = $(this).attr("rel").split("|");
     $("#EditNome").val(dados[0]);
     $("#EditQuantidade").val(dados[1]);
     $("#EditId").val(dados[2]);
+
+    //toda vez que clicar para editar insumo, remove todas options.
+    $('#insumo').find('option').remove().end();
+
+    //pega id do insumo e manda para o controller, e retorna para trazer as categorias
+    var id = $("#EditId").val();
+
+    $.ajax({
+        url: '/Produto/ShowInsumos',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            'EditId': id
+        },
+        success: function (data) {
+            var itens = "";
+            var option = "";
+            $.each(data, function (i) {
+                itens = data[i].categoria.descricao;
+                option += $(this).text() + '<option value=' + itens + ' selected="selected">' + itens + '</option>';
+            });
+            $('#insumo').append(option);
+        }
+
+    });
+
 });
 
 //Post insumo
@@ -85,7 +124,7 @@ $(".salvar").click(function () {
     var x = "";
     $.ajax({
         type: "POST",
-        url: '/Administrativa/EditInsumo',
+        url: '/Produto/EditInsumo',
         data: {
             'Id': id,
             'Nome': nome,
@@ -100,40 +139,41 @@ $(".salvar").click(function () {
     });
 });
 
-//Tabela
-$(function () {
-    $('#example1').DataTable();
-    $('#example2').DataTable({
-        'paging': true,
-        'lengthChange': false,
-        'searching': false,
-        'ordering': true,
-        'info': true,
-        'autoWidth': false
-    });
-});
 
-//Edit insumos do produto
+//Get insumos do produto
 $(".editProdutoHasInsumo").click(function () {
     var id = $(this).attr("id");
+
+    //Pega Nome e Caminho da foto do produto
+    var dados = $(this).attr("rel").split("|");
+
     $.ajax({
         type: "POST",
-        url: '/Administrativa/ProdutoHasInsumo',
+        url: '/Produto/ProdutoHasInsumo',
         data: {
             'Id': id
         },
         success: function (data) {
+
+            //coloca o nome do produto no titulo da modal           
+            $("#title").html(dados[0]);
+            $("#foto").html("<img src='" + dados[1].replace("~", "") + "' class='direct-chat-img'  max-width='65px !important' max-height='65px !important'/>");
+            $("#valor").html("<div class='col-sm-4'><label class='control-label'>Valor</label>" + "<input class='form-control' type='number' value='" + dados[2].replace(",",".") + "'" + dados[2] + "/></div>");          
+            $("#categoriaP").html("<div class='col-sm-4'><label class='control-label'>Categoria</label>" + "<select class='form-control select2' style='width: 100 %;'><option selected='selected' value='" + dados[3] + "'> " + dados[3] + " </option></select></div>");
+            $("#medida").html("<div class='col-sm-4'><label class='control-label'>Medida</label>" + "<select class='form-control select2' style='width: 100 %;'><option selected='selected' value='" + dados[4] + "'> " + dados[4] + " </option></select></div>");
+            
+
             var insumo = "";
             $(data).each(function (i) {
-                insumo += "<p>" + data[i].insumo.nome + "</p><input id='Insumo" + i + "' class='form-control'/>";
+                //cria input para cada insumo do produto
+                insumo += "<div class='col-sm-3'><label class='control-label'>" + data[i].insumo.nome + "</label>" + "<input id=" + data[i].idProdutoHasInsumo + " class='form-control' type='number'/></div>";
 
+                //depois de colocar o input acima, insere o valor da quantidade no input
                 $(document).ready(function () {
-                    $("#Insumo" + i + "").val(data[i].quantidade);
+                    $("#" + data[i].idProdutoHasInsumo + "").val(data[i].quantidade);
                 });
             });
-
-            $("#produto").html(insumo);
-            //alert('Enviado');
+            $("#insumos").html(insumo);
         },
         error: function (error) {
             alert('Nao enviou');
@@ -141,7 +181,7 @@ $(".editProdutoHasInsumo").click(function () {
     });
 });
 
-//Coloca inputs para insumos selecionados
+//Coloca inputs para insumos selecionados em adicionar produto
 var itens;
 $('#selectInsumos').change(function () {
     var str = "";
@@ -149,7 +189,7 @@ $('#selectInsumos').change(function () {
 
     $("#selectInsumos option:selected").each(function (i) {
         id = "Quantidade" + i + "";
-        str += $(this).text() + "<p><input type='text'  name='" + id + "' id='" + id + "' class='form-control' onblur='myFunction(" + id + ", " + i + ")'  placeholder='Quantidade do produto'/> </p>";
+        str += "<div class='col-sm-3'><label class='control-label'>" + $(this).text() + "</label> " + "<input type='text'  name='" + id + "' id='" + id + "' class='form-control ' onblur='myFunction(" + id + ", " + i + ")'  placeholder='Quantidade do produto'/></div>";
         itens = new Array(i);
     });
     $("#Insumo").html(str);
@@ -167,3 +207,39 @@ function myFunction(recebe, i) {
         $("#Quantidade").html(itens);
     });
 }
+
+//retorna as medidas das categorias
+$("#categoria").change(function () {
+    //depois de escolher categorias, limpa insumos
+    $('#Insumo').html("");
+
+    var categoria = $("#categoria").val();
+    $.ajax({
+        url: '/Produto/AddProduto',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            'cat': categoria
+        },
+        success: function (data) {
+            var itens = "<option>Selecione Medida</option>";
+            var option = "";
+            $.each(data.data1, function (i) {
+                itens += "<option value= " + data.data1[i].idMedida + "> " + data.data1[i].nome + " </option>";
+
+            });
+            $("#medida").html(itens);
+
+            $.each(data.data2, function (i) {
+                option += $(this).text() + '<option value=' + "\'" + data.data2[i].insumo.nome + "\'" + '>' + data.data2[i].insumo.nome + '</option>';
+            });
+            $('#selectInsumos').html(option);
+
+
+        },
+        error: function (error) {
+            $("#medida").html("<option>Selecione Medida</option>");
+        }
+
+    });
+});

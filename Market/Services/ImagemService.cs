@@ -24,24 +24,23 @@ namespace Market.Services
                 };
 
                 if (PermittedFileTypes.Contains(imagem.ContentType))
-                {               
-
-                var PathDirectory = $"images/ImagemProduto/";
-
-                Directory.CreateDirectory(string.Concat(@"wwwroot/", PathDirectory));
-
-                //string nome = DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(imagem.FileName).ToLower();
-                string nome = DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(imagem.FileName).ToLower();
-
-                using (var stream = new FileStream(string.Concat(@"wwwroot/", PathDirectory, nome), FileMode.Create))
                 {
-                    await imagem.CopyToAsync(stream);
-                }
 
-                string PathFile;
+                    var PathDirectory = $"images/ImagemProduto/";
 
-                PathFile = string.Concat(@"~/", PathDirectory, nome);
-                return PathFile;
+                    Directory.CreateDirectory(string.Concat(@"wwwroot/", PathDirectory));
+
+                    string nome = DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(imagem.FileName).ToLower();
+                                        
+                    using (var stream = new FileStream(string.Concat(@"wwwroot/", PathDirectory, nome), FileMode.Create))
+                    {
+                        await imagem.CopyToAsync(stream);
+                    }
+
+                    string PathFile;
+
+                    PathFile = string.Concat(@"~/", PathDirectory, nome);
+                    return PathFile;
                 }
                 return null;
             }

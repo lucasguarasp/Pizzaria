@@ -57,16 +57,41 @@ namespace Market.Controllers
         //medida
         public IActionResult TiposTamanhos()
         {
-            ViewBag.TiposTamanhos = _db.Tamanhos.ToList();
+            var TiposTamanhos = _db.Medidas.ToList();
+            ViewBag.categorias = _db.Categorias.ToList();
 
-            if (ViewBag.TiposTamanhos != null)
+            return View(TiposTamanhos);
+        }
+
+        [HttpPost]
+        public IActionResult TiposTamanhos(Medida med)
+        {
+            var medida = new Medida
             {
-                return View(ViewBag.Categorias);
-            }
-            else
+                Nome = med.Nome,
+                Sigla = med.Sigla,
+                CategoriaId = med.CategoriaId
+            };
+
+            if (ModelState.IsValid)
             {
-                return View();
+                _db.Medidas.Add(medida);
+                _db.SaveChanges();
+                return RedirectToAction("TiposTamanhos");
+
             }
+
+            return View();
+        }
+
+        public IActionResult RemoveTiposTamanhos(int Id)
+        {
+            var id = _db.Medidas.Single(c => c.IdMedida == Id);
+
+            _db.Medidas.Remove(id);
+            _db.SaveChanges();
+
+            return RedirectToAction("TiposTamanhos");
         }
     }
 }

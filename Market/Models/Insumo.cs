@@ -23,7 +23,7 @@ namespace Market.Models
         public double PrecoInsumo { get; set; }
 
         [Display(Name = "Esque máximo")]
-        public double EstoqueMax { get; set; }
+        public double EstoqueMax { get; set; }       
 
     }
 }

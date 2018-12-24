@@ -21,12 +21,16 @@ namespace Market.Models
         public virtual DbSet<TipoDeUsuario> TipoDeUsuarios { get; set; }
 
         public virtual DbSet<Produto> Produtos { get; set; }
-        public virtual DbSet<Medida> Tamanhos { get; set; }
+        public virtual DbSet<Medida> Medidas { get; set; }
         public virtual DbSet<Categoria> Categorias { get; set; }
         public virtual DbSet<Insumo> Insumos { get; set; }
         public virtual DbSet<HistoricoInsumo> HistoricoInsumos { get; set; }
         public virtual DbSet<ProdutoHasInsumo> ProdutoHasInsumos { get; set; }
+        public virtual DbSet<InsumoHasCategoria> InsumoHasCategorias { get; set; }
+
         public virtual DbSet<Imagem> Imagems { get; set; }
+
+
 
 
     }

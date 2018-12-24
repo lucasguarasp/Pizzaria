@@ -2708,4 +2708,8 @@
     <TypeScriptCompile Include="wwwroot\Administrativa\bower_components\moment\moment.d.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

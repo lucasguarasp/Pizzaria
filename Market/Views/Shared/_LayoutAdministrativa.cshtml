@@ -14,9 +14,6 @@
     <link rel="stylesheet" href="~/Administrativa/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="~/Administrativa/bower_components/Ionicons/css/ionicons.min.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="~/Administrativa/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-
     <!-- daterange picker -->
     <link rel="stylesheet" href="~/Administrativa/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap datepicker -->
@@ -36,6 +33,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="~/Administrativa/dist/css/skins/_all-skins.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Administrativa/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -155,13 +154,13 @@
                         <a asp-area="" asp-controller="Administrativa" asp-action="CadastroCliente"><i class="fa fa-circle-o text-green"></i> <span>Cadastro</span></a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Administrativa" asp-action="AddProduto"><i class="fa fa-circle-o text-yellow"></i> <span>Adicionar Produto</span></a>
+                        <a asp-area="" asp-controller="Produto" asp-action="AddProduto"><i class="fa fa-circle-o text-yellow"></i> <span>Adicionar Produto</span></a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Administrativa" asp-action="ListarProdutos"><i class="fa fa-circle-o text-yellow"></i> <span>Listar Produtos</span></a>
+                        <a asp-area="" asp-controller="Produto" asp-action="ListarProdutos"><i class="fa fa-circle-o text-yellow"></i> <span>Listar Produtos</span></a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Administrativa" asp-action="AddInsumo"><i class="fa fa-circle-o text-yellow"></i> <span>Adicionar Insumo</span></a>
+                        <a asp-area="" asp-controller="Produto" asp-action="AddInsumo"><i class="fa fa-circle-o text-yellow"></i> <span>Adicionar Insumo</span></a>
                     </li>
                     <li class="header">Gerenciamento</li>
                     <li>
@@ -460,8 +459,6 @@
     <!-- jQuery 3 -->
     <script src="~/Administrativa/bower_components/jquery/dist/jquery.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
-
     <!-- Bootstrap 3.3.7 -->
     <script src="~/Administrativa/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -473,6 +470,8 @@
     <script src="~/Administrativa/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="~/Administrativa/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+
     <!-- date-range-picker -->
     <script src="~/Administrativa/bower_components/moment/min/moment.min.js"></script>
     <script src="~/Administrativa/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -483,9 +482,6 @@
     <!-- bootstrap time picker -->
     <script src="~/Administrativa/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
-    <!-- DataTables -->
-    <script src="~/Administrativa/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="~/Administrativa/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
     <!-- SlimScroll -->
     <script src="~/Administrativa/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
@@ -498,8 +494,15 @@
     <!-- AdminLTE for demo purposes -->
     <script src="~/Administrativa/dist/js/demo.js"></script>
 
+    <!-- DataTables -->
+    <script src="~/Administrativa/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Administrativa/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+
     <!-- Meus Scripts -->
     <script src="~/Script/MeuScript.js"></script>
 
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

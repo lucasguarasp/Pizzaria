@@ -1,0 +1,212 @@
+﻿@model IEnumerable<Market.Models.Insumo>
+
+@{
+    ViewData["Title"] = "AddInsumo";
+    Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
+}
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Cadastro de produto</h3>
+    </div>
+    <form asp-action="AddInsumo" class="form-horizontal">
+        <div class="box-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label class="control-label">Nome</label>
+                    <input type="text" class="form-control" placeholder="Nome do produto" name="Nome">
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="control-label">Quantidade</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Quantidade em Kg" name="Quantidade">
+                        <span class="input-group-addon">Kg</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">Valor</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">R$</span>
+                        <input type="text" class="form-control" placeholder="Valor do Kg" name="Valor">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label class="control-label">Categoria</label>
+                    <select class="form-control select2 chosen-select" multiple="multiple"
+                            data-placeholder="Selecione a categoria" style="width: 100%;" name="Categorias"
+                            asp-items="@ViewBag.categorias"></select>
+                </div>
+            </div>
+
+            <div class="box-footer">
+                <button type="submit" value="Create" class="btn btn-info pull-right">Adicionar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Insumos</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <th style="width: 35%">
+                        @Html.DisplayName("Nome")
+                    </th>
+                    <th style="width: 15%">
+                        @Html.DisplayName("Preço em R$")
+                    </th>
+                    <th style="width: 15%">
+                        @Html.DisplayName("Quantidade em Kg")
+                    </th>
+                    <th style="width: 25%; text-align: center">
+                        @Html.DisplayName("Estoque")
+                    </th>
+
+                    <th style="width: 10%; text-align: center">
+                        @Html.DisplayName("Editar")
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrecoInsumo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantidade)
+                        </td>
+                        <td>
+
+                            @{
+                                double porcentagem = Math.Round((item.Quantidade / item.EstoqueMax) * 100, 1);
+
+                                var color = "";
+                                var bg = "";
+                                string porc = porcentagem.ToString().Replace(",", ".");
+
+                                if (porcentagem < 25)
+                                {
+                                    color = "progress-bar progress-bar-danger";
+                                    bg = "badge bg-red";
+
+                                }
+                                if (porcentagem >= 25 && porcentagem < 50)
+                                {
+                                    color = "progress-bar progress-bar-yellow";
+                                    bg = "badge bg-yellow";
+                                }
+                                if (porcentagem >= 50 && porcentagem <= 100)
+                                {
+                                    color = "progress-bar progress-bar-success";
+                                    bg = "badge bg-green";
+                                }
+                                <div class="form-group">
+                                    <div class="col-lg-9">
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="@color" style="width: @porc%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <span class="@bg">@porcentagem%</span>
+                                    </div>
+                                </div>
+                            }
+
+                        </td>
+                        <td style="text-align: center">
+                            <a asp-action="RemoveInsumo" asp-route-id="@item.IdInsumo" class="glyphicon glyphicon-trash fa-lg"></a>
+                            <a>&emsp;</a>
+                            <a href="#" data-toggle="modal" data-target="#modal-edit" class="glyphicon glyphicon-edit fa-lg editInsumo"
+                               rel="@item.Nome|@item.Quantidade|@item.IdInsumo|@item.Nome">
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>
+
+
+<!-- /.modal EDIT-->
+<div class="modal fade" id="modal-edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Editar Insumo</h4>
+
+            </div>
+            <form asp-action="EditInsumo">
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input id="EditNome" class="form-control" name="EditNome" />
+                    </div>
+                    <div class="form-group">
+                        <label>Quantidade Atual</label>
+                        <input id="EditQuantidade" class="form-control" name="EditQuantidade" disabled />
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <label>Quantidade Modificada</label>
+                                <input id="EditQuantidade" class="form-control" name="EditQuantidade" />
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Selecione opção</label>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-success">
+                                        <input type="radio" name="option" value="adicionar" autocomplete="off">Adicionar
+                                    </label>
+                                    <label class="btn btn-danger">
+                                        <input type="radio" name="option" value="remover" autocomplete="off">Remover
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <select class="form-control select2 " multiple="multiple" id="insumo" style="width: 100%;" name="insumo">
+                     
+                    </select>
+                   
+
+                    <div class="form-group row ">
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                    <button class="btn btn-primary salvar" name="EditId" id="EditId">Salvar</button>
+
+                </div>
+            </form>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal EDIT-->
