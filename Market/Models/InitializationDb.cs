@@ -51,12 +51,42 @@ namespace Market.Models
                 new Insumo{Nome="Batata Palha", PrecoInsumo = 3.99 , EstoqueMax = 100, Quantidade = 100},
                 new Insumo{Nome="Queijo", PrecoInsumo = 0.99 , EstoqueMax = 150, Quantidade = 150},
                 new Insumo{Nome="Presunto", PrecoInsumo = 1.50 , EstoqueMax = 200, Quantidade = 200}
-            };
+            };            
 
             foreach (var item in insumo)
             {
                 context.Insumos.Add(item);
             }
+            
+            var tipousuario = new TipoDeUsuario[]
+            {
+                new TipoDeUsuario{Descricao="gerente"},
+                new TipoDeUsuario{Descricao="vendedor"},
+                new TipoDeUsuario{Descricao="cliente"}
+            };
+
+            foreach (var item in tipousuario)
+            {
+                context.TipoDeUsuarios.Add(item);
+            }
+
+            //var insumoCategoria = new InsumoHasCategoria[]
+            //{
+            //    new InsumoHasCategoria{InsumoId = 1, CategoriaId = 1},
+            //    new InsumoHasCategoria{InsumoId = 1, CategoriaId = 2},
+            //    new InsumoHasCategoria{InsumoId = 2, CategoriaId = 1},
+            //    new InsumoHasCategoria{InsumoId = 3, CategoriaId = 2},
+            //    new InsumoHasCategoria{InsumoId = 3, CategoriaId = 1},
+            //    new InsumoHasCategoria{InsumoId = 3, CategoriaId = 2},
+            //    new InsumoHasCategoria{InsumoId = 4, CategoriaId = 1},
+            //    new InsumoHasCategoria{InsumoId = 4, CategoriaId = 2}
+            //};
+
+            //foreach (var item in insumoCategoria)
+            //{
+            //    context.InsumoHasCategorias.Add(item);
+            //}
+
 
             context.SaveChanges();
         }

@@ -59,7 +59,7 @@ namespace Market.Controllers
                 Telefone = Cad.Cadastro.Telefone,
                 Celular = Cad.Cadastro.Celular,
                 Sexo = Cad.Cadastro.Sexo,
-                TipoDeUsuarioId = 2,
+                TipoDeUsuarioId = 3,
                 EnderecoId = endereco.IdEndereco,
                 Status = true
             };
