@@ -36,7 +36,7 @@ namespace Market.Models
                 new Medida{Nome="Grande", Sigla="G", CategoriaId = 1},
                 new Medida{Nome="Gigante", Sigla="GG", CategoriaId = 1},
                 new Medida{Nome="Unidade", Sigla="UN", CategoriaId = 2},
-                new Medida{Nome="Unidade", Sigla="UN", CategoriaId = 3}                   
+                new Medida{Nome="Unidade", Sigla="UN", CategoriaId = 3}
             };
 
             foreach (var item in medida)
@@ -51,13 +51,13 @@ namespace Market.Models
                 new Insumo{Nome="Batata Palha", PrecoInsumo = 3.99 , EstoqueMax = 100, Quantidade = 100},
                 new Insumo{Nome="Queijo", PrecoInsumo = 0.99 , EstoqueMax = 150, Quantidade = 150},
                 new Insumo{Nome="Presunto", PrecoInsumo = 1.50 , EstoqueMax = 200, Quantidade = 200}
-            };            
+            };
 
             foreach (var item in insumo)
             {
                 context.Insumos.Add(item);
             }
-            
+
             var tipousuario = new TipoDeUsuario[]
             {
                 new TipoDeUsuario{Descricao="gerente"},
@@ -70,25 +70,29 @@ namespace Market.Models
                 context.TipoDeUsuarios.Add(item);
             }
 
-            //var insumoCategoria = new InsumoHasCategoria[]
-            //{
-            //    new InsumoHasCategoria{InsumoId = 1, CategoriaId = 1},
-            //    new InsumoHasCategoria{InsumoId = 1, CategoriaId = 2},
-            //    new InsumoHasCategoria{InsumoId = 2, CategoriaId = 1},
-            //    new InsumoHasCategoria{InsumoId = 3, CategoriaId = 2},
-            //    new InsumoHasCategoria{InsumoId = 3, CategoriaId = 1},
-            //    new InsumoHasCategoria{InsumoId = 3, CategoriaId = 2},
-            //    new InsumoHasCategoria{InsumoId = 4, CategoriaId = 1},
-            //    new InsumoHasCategoria{InsumoId = 4, CategoriaId = 2}
-            //};
+            context.SaveChanges();
 
-            //foreach (var item in insumoCategoria)
-            //{
-            //    context.InsumoHasCategorias.Add(item);
-            //}
+            var insumoCategoria = new InsumoHasCategoria[]
+            {
+                new InsumoHasCategoria{InsumoId = 1, CategoriaId = 1},
+                new InsumoHasCategoria{InsumoId = 1, CategoriaId = 2},
+                new InsumoHasCategoria{InsumoId = 2, CategoriaId = 1},
+                new InsumoHasCategoria{InsumoId = 3, CategoriaId = 1},
+                new InsumoHasCategoria{InsumoId = 3, CategoriaId = 2},
+                new InsumoHasCategoria{InsumoId = 4, CategoriaId = 1},
+                new InsumoHasCategoria{InsumoId = 4, CategoriaId = 2},
+                new InsumoHasCategoria{InsumoId = 5, CategoriaId = 2},
+                new InsumoHasCategoria{InsumoId = 1, CategoriaId = 4}
+            };
 
+            foreach (var item in insumoCategoria)
+            {
+                context.InsumoHasCategorias.Add(item);
+            }
 
             context.SaveChanges();
+
         }
+
     }
 }
