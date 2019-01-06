@@ -24,10 +24,9 @@ namespace Market.Models
                 new Categoria{Descricao="Refeição"}
             };
 
-            foreach (var item in categoria)
-            {
-                context.Categorias.Add(item);
-            }
+            //add uma linsta Range            
+            context.Categorias.AddRange(categoria);
+
 
             var medida = new Medida[]
             {

@@ -30,11 +30,19 @@ namespace Market
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-         
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                   .AddCookie(
+                   options =>
+                   {
+                       options.LoginPath = "/Usuario/Login";
+                       options.LogoutPath = "/Usuario/Singout";
+                       options.AccessDeniedPath = "/BreakNews/Index";
+                   }
+
+               );
 
             services.AddMvc();
 
-           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,15 +60,15 @@ namespace Market
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();           
-            
+            app.UseStaticFiles();
+
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Administrativa}/{action=Index}/{id?}");
-                    //template: "{controller=Usuario}/{action=Login}/{id?}");
+                    //template: "{controller=Administrativa}/{action=Index}/{id?}");
+                    template: "{controller=Usuario}/{action=Login}/{id?}");
             });
 
             InitializationDb.Initialize(_db);

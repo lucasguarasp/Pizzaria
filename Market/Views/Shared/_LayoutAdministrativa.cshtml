@@ -77,14 +77,14 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-                                <span class="hidden-xs">Alexander Pierce</span>
+                                <span class="hidden-xs">@ViewBag.Nome</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
                                     <img src="" class="img-circle" alt="User Image">
                                     <p>
-                                        Alexander Pierce - Web Developer
+                                        @ViewBag.Nome
                                         <small>Member since Nov. 2012</small>
                                     </p>
                                 </li>
@@ -109,8 +109,11 @@
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                    </div>
+                                        <a asp-controller="Usuario" asp-action="Logout" class="btn btn-default btn-flat">
+                                            Sign out
+                                            </a>
+                                            @*<a href="#" class="btn btn-default btn-flat">Sign out</a>*@
+</div>
                                 </li>
                             </ul>
                         </li>

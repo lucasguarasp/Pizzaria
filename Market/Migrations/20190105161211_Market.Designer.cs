@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Market.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190104230957_Market")]
+    [Migration("20190105161211_Market")]
     partial class Market
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

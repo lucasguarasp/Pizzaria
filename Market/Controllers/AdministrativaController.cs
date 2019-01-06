@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Market.Models;
 using Market.Services;
@@ -18,7 +19,7 @@ using Microsoft.Extensions.Options;
 
 namespace Market.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AdministrativaController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -30,6 +31,11 @@ namespace Market.Controllers
 
         public IActionResult Index()
         {
+            //pega lista
+            //HttpContext.User.Claims
+            //var nome = HttpContext.User.Claims.FirstOrDefault(u => u.Type==ClaimTypes.Name);
+            var nome = HttpContext.User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Name).Value;
+            ViewBag.Nome = nome;
             return View();
         }
 
@@ -38,6 +44,7 @@ namespace Market.Controllers
             return View();
         }
 
+        [Authorize(Roles = "gerente")]
         public IActionResult Teste()
         {
             return View();
@@ -53,9 +60,9 @@ namespace Market.Controllers
             {
                 Nome = Cad.Cadastro.Nome,
                 Email = Cad.Cadastro.Email,
-                Cpf = Cad.Cadastro.Cpf,
+                Cpf = Cad.Cadastro.Cpf.Replace(".", "").Replace("-", ""),
                 DataNascimento = Cad.Cadastro.DataNascimento,
-                Password = HashService.Crip(Cad.Cadastro.Cpf),
+                Password = HashService.Crip(Cad.Cadastro.Cpf.Replace(".", "").Replace("-", "")),
                 Telefone = Cad.Cadastro.Telefone,
                 Celular = Cad.Cadastro.Celular,
                 Sexo = Cad.Cadastro.Sexo,

@@ -1,4 +1,5 @@
 ﻿using Market.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,15 +16,10 @@ namespace Market.ViewModels
         [MinLength(4)]
         public string Login { get; set; }
         [Required]
-        [MinLength(8)]
+        [MinLength(6)]
         [MaxLength(30)]
         [DataType(DataType.Password)]
-        public string Senha { get; set; }
-
-        public Usuario Entrar(ApplicationDbContext _db)
-        {
-            return _db.Cadastros.Count(u => u.Email.Equals(Login) || u.Cpf.Equals(Login)) > 0 ? _db.Cadastros.Single(u => u.Email.Equals(Login) || u.Cpf.Equals(Login)) : null;
-        }
+        public string Senha { get; set; }        
 
     }
 }
