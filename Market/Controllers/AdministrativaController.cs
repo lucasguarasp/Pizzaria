@@ -30,7 +30,8 @@ namespace Market.Controllers
         }
 
         public IActionResult Index()
-        {
+        {            
+
             //pega lista
             //HttpContext.User.Claims
             //var nome = HttpContext.User.Claims.FirstOrDefault(u => u.Type==ClaimTypes.Name);
