@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
+
+    var produto = ViewBag.produto as IEnumerable<Market.Models.Produto>;
+}
+
+<script src="~/Script/Carrinho.js"></script>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Produtos
+                </h3>
+            </div>
+
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <table id="example1" class="table table-hover table-bordered dataTable" role="grid" aria-describedby="example1_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th style="width: 1%;">Foto</th>
+                                        <th style="width: 22%;">Nome</th>
+                                        <th style="width: 45%;">Descrição</th>
+                                        <th style="width: 5%;">Valor</th>
+                                        <th style="width: 5%;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in produto)
+                                    {
+                                        <tr role="row" class="odd">
+                                            <td><img src="@Url.Content(item.Foto)" class="direct-chat-img" /></td>
+                                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Valor)</td>
+                                            <td><button class="btn btn-primary" onclick="addCart(@item.IdProduto,'@item.Nome', @item.Valor.ToString().Replace(",","."))">ADD</button></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <h4>
+                    <span class="text-muted">Seu carrinho</span>
+                    <span class="badge badge-secondary badge-pill pull-right" id="itens">0</span>
+                </h4>
+            </li>
+            @*<li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    <small class="my-0">Product name, R$ 20,00</small>
+                    <a class="pull-right">
+                        <i class="fa fa-trash">
+                        </i>
+                    </a>
+                    <a class="pull-right">
+                        <i class="fa fa-remove">
+                        </i>
+                        &ensp;
+                    </a>
+
+                </div>
+                <div>
+                    <span data-toggle="tooltip" class="badge bg-green" data-original-title="3 New Messages">3x a</span>
+                    <span class="text-muted pull-right">$12</span>
+                </div>
+            </li>*@
+            <p id="produto"></p>
+
+            <li class="list-group-item d-flex justify-content-between text-right">
+                <span class="pull-left">Total a pagar:</span>
+                <strong id="total">R$ 0,00</strong>
+            </li>
+
+        </ul>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block pull-right">Finalizar</button>
+        </div>
+    </div>
+</div>

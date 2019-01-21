@@ -45,7 +45,7 @@ namespace Market.Controllers
             return View();
         }
 
-        [Authorize(Roles = "gerente")]
+        [Authorize(Roles = "cliente")]
         public IActionResult Teste()
         {
             return View();
