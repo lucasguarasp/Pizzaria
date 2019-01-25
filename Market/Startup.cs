@@ -41,6 +41,16 @@ namespace Market
 
                );
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = false
+                ;
+            });
+
             services.AddMvc();
 
         }
@@ -72,6 +82,7 @@ namespace Market
             });
 
             InitializationDb.Initialize(_db);
+            app.UseSession();
 
         }
 

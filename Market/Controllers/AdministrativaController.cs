@@ -38,6 +38,12 @@ namespace Market.Controllers
             var nome = HttpContext.User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Name).Value;
             ViewBag.Nome = nome;
             return View();
+
+           
+
+
+
+
         }
 
         public IActionResult CadastroCliente()

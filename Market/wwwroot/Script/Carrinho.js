@@ -2,6 +2,7 @@
 var total = 0;
 var ItemProduto = "";
 
+//toda vez que é add um produto essa fuction é chamada
 function addCart(id, nome, valor) {
     ItemProduto = "";
 
@@ -23,6 +24,7 @@ function addCart(id, nome, valor) {
     ExibirCarrinho();
 }
 
+//adiciona front do carrinho
 function ExibirCarrinho() {
     $("#itens").html(produtos.length);
     total = 0;
@@ -56,15 +58,24 @@ function ExibirCarrinho() {
     setCookie();
 }
 
+//remove apenas todas quantidades do produto
 function RemoveAll(id) {
 
     let index = produtos.findIndex(c => c.Id == id);
     produtos.splice(index, 1);
 
     ItemProduto = "";
-    ExibirCarrinho();
+
+    if (window.location.pathname === "/Checkout/Checkout") {
+        setCookie();
+        window.location = "/Checkout/Checkout";
+    } else {
+        ExibirCarrinho();
+    }
+
 }
 
+//remove apenas uma quantidade do produto
 function RemoveItem(id) {
 
     let index = produtos.findIndex(val => val.Id == id);
@@ -78,17 +89,100 @@ function RemoveItem(id) {
     ExibirCarrinho();
 }
 
+//cria cookie a partir do carrinho
 function setCookie() {
-
-    document.cookie = "Projeto" + "=" + ('Projeto', JSON.stringify(produtos));
-    //var storedAry = JSON.parse(('Projeto'));
+    document.cookie = "Projeto" + "=" + (JSON.stringify(produtos));
     var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    alert(cookieValue);
 
-    let teste = new Array();
-    teste.push(cookieValue);
-
-    //teste.splice(cookieValue, 0, cookieValue);
-    
+    //var arrayProdutos = $.parseJSON(cookieValue); 
 
 };
+
+//chama controoler e envia array de produtos
+function Checkout() {
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    var arrayProdutos = $.parseJSON(cookieValue);
+
+    $.ajax({
+        type: "GET",
+        url: '/Checkout/Checkout',
+        data: {
+            'produtos': arrayProdutos
+        },
+        success: function (data) {
+            alert('Enviado');
+        },
+        error: function (error) {
+            alert('Nao enviou');
+        }
+    });
+
+
+}
+
+$(document).ready(function () {
+    if (window.location.pathname === "/Checkout/Checkout") {
+        var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+        if (cookieValue != "") {
+            produtos = $.parseJSON(cookieValue);
+        }
+
+        total = 0;
+        $(produtos).each(function (i) {
+            total += produtos[i].Valor * produtos[i].Quantidade;
+        });
+
+        ItemProduto = "";
+        $(produtos).each(function (i) {
+            ItemProduto += '<tr>';
+            ItemProduto += '<td data-th="Product">';
+            ItemProduto += '<div class="row">';
+            ItemProduto += '<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>';
+            ItemProduto += '<div class="col-sm-10">';
+            ItemProduto += '<h4 class="nomargin">' + produtos[i].Nome + '</h4>';
+            ItemProduto += '<p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.</p>';
+            ItemProduto += '</div>';
+            ItemProduto += '</div>';
+            ItemProduto += '</td>';
+            ItemProduto += '<td data-th="Price">R$ ' + produtos[i].Valor + '</td>';
+            ItemProduto += '<td data-th="Quantity">';
+            ItemProduto += '<input type="number" class="form-control text-center" value="' + produtos[i].Quantidade + '">';
+            ItemProduto += '</td>';
+            ItemProduto += '<td data-th="Subtotal" class="text-center">' + (produtos[i].Valor * produtos[i].Quantidade).toFixed(2) + '</td>';
+            ItemProduto += '<td class="actions pull-right" data-th="">';
+            ItemProduto += '<button class="btn btn-danger btn-sm" onclick="RemoveAll(' + produtos[i].Id + ')"><i class="fa fa-trash-o"></i></button>';
+            ItemProduto += '</td>';
+            ItemProduto += '</tr>';
+        });
+
+        $("#produto").html(ItemProduto);
+        $("#total").html("R$ " + total.toFixed(2));
+
+    }
+})
+
+//adiciona itens no carrinho se existir cookie
+$(document).ready(function () {
+    if (window.location.pathname === "/Checkout/Index") {
+        var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+        if (cookieValue != "") {
+            produtos = $.parseJSON(cookieValue);
+            ExibirCarrinho();
+        }
+    }
+})
+
+
+// var n = 3;
+// while (n != 1) {
+//     if (n % 2 == 0) {
+//         n = n / 2;
+//         document.write(n+' ');
+//     } else {
+//         n = (3 * n) + 1;
+//         document.write(n+' ');
+//     }    
+// } 
+document.write('opa'.length);

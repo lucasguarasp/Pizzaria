@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Market.Models;
+using Market.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,9 +33,35 @@ namespace Market.Controllers
             }
         }
 
-        public IActionResult Checkout()
-        {           
-            return View();
+        public IActionResult Checkout(int id)
+        {
+        //    var cookieFromHeaderString = (HttpContext.Request.Headers["Cookie"]).FirstOrDefault();
+        //    if (cookieFromHeaderString != null)
+        //    {
+
+        //        string[] strArray = cookieFromHeaderString.Split(new string[] { "; " }, StringSplitOptions.None);
+        //        string whCookie = strArray.Where(m => m.StartsWith("Projeto=")).FirstOrDefault();
+
+        //        if (whCookie != null)
+        //        {
+        //            int start = whCookie.IndexOf("=") + 1;
+        //            string cookieValue = whCookie.Substring(start);
+
+        //            string[] whArray = cookieValue.Split('}');                    
+                    
+        //        }
+        //    }
+
+           return View();
+        }
+
+       
+       [HttpPost]
+         public IActionResult Checkout(List<ViewModelCheckout> produtos)
+        {
+            //return RedirectToAction("Checkout");            
+           return Json (produtos);
         }
     }
 }
+

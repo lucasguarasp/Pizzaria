@@ -6,7 +6,9 @@
     var produto = ViewBag.produto as IEnumerable<Market.Models.Produto>;
 }
 
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="~/Script/Carrinho.js"></script>
+
 
 <div class="row">
     <div class="col-lg-8">
@@ -19,7 +21,7 @@
 
             <div class="box-body">
                 <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
+                     <div class="row">
                         <div class="col-sm-12">
 
                             <table id="example1" class="table table-hover table-bordered dataTable" role="grid" aria-describedby="example1_info">
@@ -91,7 +93,7 @@
         </ul>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg btn-block pull-right">Finalizar</button>
+            <a asp-controller="Checkout" asp-action="Checkout" class="btn btn-success btn-lg btn-block pull-right" onclick="Checkout()">Finalizar</a>
         </div>
     </div>
 </div>
