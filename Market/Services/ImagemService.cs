@@ -31,7 +31,7 @@ namespace Market.Services
                     Directory.CreateDirectory(string.Concat(@"wwwroot/", PathDirectory));
 
                     string nome = DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(imagem.FileName).ToLower();
-                                        
+
                     using (var stream = new FileStream(string.Concat(@"wwwroot/", PathDirectory, nome), FileMode.Create))
                     {
                         await imagem.CopyToAsync(stream);

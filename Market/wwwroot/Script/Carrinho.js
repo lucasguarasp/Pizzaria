@@ -68,7 +68,7 @@ function RemoveAll(id) {
 
     if (window.location.pathname === "/Checkout/Checkout") {
         setCookie();
-        window.location = "/Checkout/Checkout";
+        CheckoutView();
     } else {
         ExibirCarrinho();
     }
@@ -91,98 +91,157 @@ function RemoveItem(id) {
 
 //cria cookie a partir do carrinho
 function setCookie() {
-    document.cookie = "Projeto" + "=" + (JSON.stringify(produtos));
-    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-    //var arrayProdutos = $.parseJSON(cookieValue); 
+    var d = new Date();
+    d.setTime(d.getTime() + (15 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    
+    //15 minutos cookie
+    document.cookie = 'Projeto=' + encodeURIComponent((JSON.stringify(produtos))) + ';Expires=' + expires;
 
 };
 
 //chama controoler e envia array de produtos
 function Checkout() {
+    // Pega Cookie com nome "Projeto"
     var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    var arrayProdutos = $.parseJSON(cookieValue);
 
+    var dec = decodeURIComponent(cookieValue);
+    if (dec != "") {
+        var arrayProdutos = $.parseJSON(dec);
+    }
+
+    var finaliza = document.querySelector("#finaliza");
+    if (finaliza !== null) {
+        finaliza = finaliza.getAttribute("value");
+        deleteCookie("Projeto");
+    }
+
+    //alert(finaliza);
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: '/Checkout/Checkout',
+        dataType: 'json',
+        async: false,
         data: {
-            'produtos': arrayProdutos
+            'produtos': arrayProdutos,
+            'finaliza': finaliza
         },
         success: function (data) {
-            alert('Enviado');
+            window.location = "/Checkout/Checkout";
+            produtos.forEach(function (produto, i) {
+                produto["Imagem"] = data[i].imagem.replace("~", "");
+                produto["Descricao"] = data[i].descricao;
+                setCookie();
+            });
         },
         error: function (error) {
-            alert('Nao enviou');
+
         }
     });
-
-
 }
 
 $(document).ready(function () {
     if (window.location.pathname === "/Checkout/Checkout") {
-        var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-        if (cookieValue != "") {
-            produtos = $.parseJSON(cookieValue);
-        }
-
-        total = 0;
-        $(produtos).each(function (i) {
-            total += produtos[i].Valor * produtos[i].Quantidade;
-        });
-
-        ItemProduto = "";
-        $(produtos).each(function (i) {
-            ItemProduto += '<tr>';
-            ItemProduto += '<td data-th="Product">';
-            ItemProduto += '<div class="row">';
-            ItemProduto += '<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>';
-            ItemProduto += '<div class="col-sm-10">';
-            ItemProduto += '<h4 class="nomargin">' + produtos[i].Nome + '</h4>';
-            ItemProduto += '<p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.</p>';
-            ItemProduto += '</div>';
-            ItemProduto += '</div>';
-            ItemProduto += '</td>';
-            ItemProduto += '<td data-th="Price">R$ ' + produtos[i].Valor + '</td>';
-            ItemProduto += '<td data-th="Quantity">';
-            ItemProduto += '<input type="number" class="form-control text-center" value="' + produtos[i].Quantidade + '">';
-            ItemProduto += '</td>';
-            ItemProduto += '<td data-th="Subtotal" class="text-center">' + (produtos[i].Valor * produtos[i].Quantidade).toFixed(2) + '</td>';
-            ItemProduto += '<td class="actions pull-right" data-th="">';
-            ItemProduto += '<button class="btn btn-danger btn-sm" onclick="RemoveAll(' + produtos[i].Id + ')"><i class="fa fa-trash-o"></i></button>';
-            ItemProduto += '</td>';
-            ItemProduto += '</tr>';
-        });
-
-        $("#produto").html(ItemProduto);
-        $("#total").html("R$ " + total.toFixed(2));
-
+        CheckoutView();
     }
-})
 
-//adiciona itens no carrinho se existir cookie
-$(document).ready(function () {
+    //adiciona itens no carrinho se existir cookie
     if (window.location.pathname === "/Checkout/Index") {
+
         var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
+        var dec = decodeURIComponent(cookieValue);
         if (cookieValue != "") {
-            produtos = $.parseJSON(cookieValue);
+            produtos = $.parseJSON(dec);
             ExibirCarrinho();
         }
     }
 })
 
+function deleteCookie(cname) {
+    var d = new Date(); //Create an date object
+    d.setTime(d.getTime() - (1000 * 60 * 60 * 24)); //Set the time to the past. 1000 milliseonds = 1 second
+    var expires = "expires=" + d.toGMTString(); //Compose the expirartion date
+    window.document.cookie = cname + "=" + "; " + expires;//Set the cookie with name and the expiration date
 
-// var n = 3;
-// while (n != 1) {
-//     if (n % 2 == 0) {
-//         n = n / 2;
-//         document.write(n+' ');
-//     } else {
-//         n = (3 * n) + 1;
-//         document.write(n+' ');
-//     }    
-// } 
-document.write('opa'.length);
+}
+
+function CheckoutView() {
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+    var dec = decodeURIComponent(cookieValue);
+    if (cookieValue != "") {
+        produtos = $.parseJSON(dec);
+    }
+
+    total = 0;
+    $(produtos).each(function (i) {
+        total += produtos[i].Valor * produtos[i].Quantidade;
+    });
+
+    ItemProduto = "";
+    $(produtos).each(function (i) {
+        ItemProduto += '<tr>';
+        ItemProduto += '<td data-th="Product">';
+        ItemProduto += '<div class="row">';
+        ItemProduto += '<div class="col-sm-2 hidden-xs"><img src="' + produtos[i].Imagem + '" alt="..." class="img-responsive"/></div>';
+        ItemProduto += '<div class="col-sm-10">';
+        ItemProduto += '<h4 class="nomargin">' + produtos[i].Nome + '</h4>';
+        ItemProduto += '<p>' + produtos[i].Descricao + '</p>';
+        ItemProduto += '</div>';
+        ItemProduto += '</div>';
+        ItemProduto += '</td>';
+        ItemProduto += '<td data-th="Price">R$ ' + produtos[i].Valor + '</td>';
+        ItemProduto += '<td data-th="Quantity">';
+        ItemProduto += '<input type="number" class="form-control text-center" min="0" value="' + produtos[i].Quantidade + '" id="' + produtos[i].Id + '" onBlur="AlterarQtd(' + produtos[i].Id + ',this.value);">';
+        ItemProduto += '</td>';
+        ItemProduto += '<td class="text-center">' + (produtos[i].Valor * produtos[i].Quantidade).toFixed(2) + '</td>';
+        ItemProduto += '<td class="actions pull-right" data-th="">';
+        ItemProduto += '<button class="btn btn-danger btn-sm" onclick="RemoveAll(' + produtos[i].Id + ')"><i class="fa fa-trash-o"></i></button>';
+        ItemProduto += '</td>';
+        ItemProduto += '</tr>';
+    });
+
+    $("#produto").html(ItemProduto);
+    $("#total").html("R$ " + total.toFixed(2));
+
+}
+
+function AlterarQtd(id, value) {
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)Projeto\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    var dec = decodeURIComponent(cookieValue);
+    if (cookieValue != "") {
+        produtos = $.parseJSON(dec);
+
+        let index = produtos.findIndex(x => x.Id == id);
+        produtos[index].Quantidade = parseInt(value);
+
+        if (value <= 0) {
+            produtos.splice(index, 1);
+            setCookie();
+            CheckoutView();
+        } else {
+            setCookie();
+            CheckoutView();
+        }
+
+
+    }
+}
+
+
+
+
+//expira em 15 min
+//document.cookie = "Gabriel=Chupa Meu Pau" + ";Expires=" + ExpireMin;
+// document.cookie = "Rodrigo=Viado" + ";Expires=Wed, 30 Aug 2019 00:00:00";
+//document.cookie = "Teste=" + '[{"Id":20,"Nome":"Prato Feito","Valor":12.5,"Quantidade":1,"Imagem":"/images/ImgEmpty/noImg.jpg","Descricao":"Batata Palha, Cebola, Tomate"}]';
+
+
+
+
+
+
+
+
+

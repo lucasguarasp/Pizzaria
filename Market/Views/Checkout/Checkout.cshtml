@@ -8,6 +8,10 @@
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="~/Script/Carrinho.js"></script>
 
+<script >   
+	//Cookies.set('Projeto2', '[{"Id":20,"Nome":"Prato Feito","Valor":12.5,"Quantidade":8,"Imagem":"/images/ImgEmpty/noImg.jpg","Descricao":"Batata Palha, Cebola, Tomate"}]');
+</script>
+
 <div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">Checkout</h3>
@@ -52,10 +56,26 @@
 						<tr>
 							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Comprando</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong id="total"></strong></td>
-							<td><a href="https://www.paypal.com/webapps/hermes?token=5EY097812P7754247&useraction=commit&mfid=1546377013907_cf1dec6830d7" class="btn btn-success btn-block">Finalizar <i class="fa fa-angle-right"></i></a></td>
+							<td class="hidden-xs text-center"><strong id="total"></strong></td>														
+							<td>
+							<!-- @using (Html.BeginForm("FinalizaPedido", "Checkout", FormMethod.Post))
+							{
+								<input class="btn btn-success btn-block fa fa-angle-right" type="submit" value="Finalizar"/> 
+							} -->
+							
+							<!-- @using (Html.BeginForm("FinalizaPedido", "Checkout", FormMethod.Post))
+							{
+								<button class="btn btn-success btn-block" type="submit">Finalizar <i class="fa fa-angle-right"></i> </button>
+
+							} -->
+
+							<a asp-controller="Checkout" asp-action="Index" class="btn btn-success btn-block" value="true" id="finaliza" onclick="Checkout()">Finalizar <i class="fa fa-angle-right"></i> </a>
+
+							</td>
+						
 						</tr>
 					</tfoot>
 				</table>
     </div>
 </div>
+

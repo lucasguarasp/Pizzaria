@@ -15,11 +15,12 @@ namespace Market.ViewModels
         [Required]
         [MinLength(4)]
         public string Login { get; set; }
-        [Required]
-        [MinLength(6)]
-        [MaxLength(30)]
+
+        
+        [MinLength(6,ErrorMessage = "Mínimo 6 caracteres" )]
+        [MaxLength(30,ErrorMessage = "Maximo 30 caracteres" )]
         [DataType(DataType.Password)]
-        public string Senha { get; set; }        
+        public string Senha { get; set; }
 
     }
 }

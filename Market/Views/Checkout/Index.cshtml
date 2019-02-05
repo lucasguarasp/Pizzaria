@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
 
@@ -8,7 +7,6 @@
 
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="~/Script/Carrinho.js"></script>
-
 
 <div class="row">
     <div class="col-lg-8">
@@ -42,7 +40,7 @@
                                             <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Valor)</td>
-                                            <td><button class="btn btn-primary" onclick="addCart(@item.IdProduto,'@item.Nome', @item.Valor.ToString().Replace(",","."))">ADD</button></td>
+                                            <td><button class="btn btn-primary" onclick="addCart(@item.IdProduto,'@item.Nome', @item.Valor.ToString().Replace(',','.'))">ADD</button></td>
                                         </tr>
                                     }
                                 </tbody>
@@ -93,7 +91,7 @@
         </ul>
 
         <div class="form-group">
-            <a asp-controller="Checkout" asp-action="Checkout" class="btn btn-success btn-lg btn-block pull-right" onclick="Checkout()">Finalizar</a>
+            <a class="btn btn-success btn-lg btn-block pull-right" onclick="Checkout()">Finalizar</a>
         </div>
     </div>
 </div>

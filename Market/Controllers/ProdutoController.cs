@@ -73,10 +73,11 @@ namespace Market.Controllers
 
             Task<string> foto = ImagemService.SalvarImagemProduto(Foto);
 
-
             if (foto.Result != null)
             {
                 produto.Foto = foto.Result;
+            }else{
+                produto.Foto = @"~/images/ImgEmpty/noImg.jpg";
             }
 
             //terminio do add produto
@@ -133,7 +134,7 @@ namespace Market.Controllers
             var produto = _db.Produtos.Single(x => x.IdProduto == Id);
             _db.Produtos.Remove(produto);
 
-            if (produto.Foto != null)
+            if (produto.Foto != "~/images/ImgEmpty/noImg.jpg")
             {
                 var File = string.Concat(@"wwwroot", produto.Foto.Replace("~", ""));
 
