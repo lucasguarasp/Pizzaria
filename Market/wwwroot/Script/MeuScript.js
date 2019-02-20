@@ -84,6 +84,22 @@
  neste código não é possivel inserir () ou [], apenas . (ponto), - (hifén) ou espaço
  */
 
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+            $('#imagePreview').hide();
+            $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$("#imageUpload").change(function() {
+    readURL(this);
+});
+
 //mascara de cep
 function CEP(t, mask) {
     var i = t.value.length;
@@ -145,6 +161,31 @@ $(function () {
         'ordering': true,
         'info': true,
         'autoWidth': false
+    });
+});
+
+$(document).ready(function() {
+
+    
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+    
+    $(".upload-button").on('click', function() {
+       $(".file-upload").click();
     });
 });
 
@@ -223,7 +264,7 @@ $(".editProdutoHasInsumo").click(function () {
 
             //coloca o nome do produto no titulo da modal           
             $("#title").html(dados[0]);
-            $("#foto").html("<img src='" + dados[1].replace("~", "") + "' class='direct-chat-img'  max-width='65px !important' max-height='65px !important'/>");
+            $("#foto").html("<img src='" + dados[1].replace("~", "") + "' class='direct-chat-img' max-width='65px !important' max-height='65px !important'/>");
             $("#valor").html("<div class='col-sm-4'><label class='control-label'>Valor</label>" + "<input class='form-control' type='number' value='" + dados[2].replace(",", ".") + "'" + dados[2] + "/></div>");
             $("#categoriaP").html("<div class='col-sm-4'><label class='control-label'>Categoria</label>" + "<select class='form-control select2' style='width: 100 %;'><option selected='selected' value='" + dados[3] + "'> " + dados[3] + " </option></select></div>");
             $("#medida").html("<div class='col-sm-4'><label class='control-label'>Medida</label>" + "<select class='form-control select2' style='width: 100 %;'><option selected='selected' value='" + dados[4] + "'> " + dados[4] + " </option></select></div>");

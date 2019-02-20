@@ -5,6 +5,23 @@
     Layout = "~/Views/Shared/_LayoutAdministrativa.cshtml";
 }
 
+ <!-- Deixa Titulo Modal na cor laranja -->
+<style>       
+    .modal-header-warning {
+	color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #f0ad4e;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+    }
+</style> 
+
+ <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 
 <div class="box box-info">
     <div class="box-header">
@@ -61,14 +78,12 @@
     <!-- /.box-body -->
 </div>
 
-<!-- /.modal EDIT-->
-<div class="modal fade" id="modal-edit">
+
+<!--
+<div class="modal fade" id="modal-edit2">
     <div class="modal-dialog">
         <div class="modal-content">
-
-            <!-- Widget: user widget style 1 -->
             <div class="box box-widget widget-user-2">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-yellow">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -76,15 +91,13 @@
                     <div class="widget-user-image" id="foto">
                         @*<img class="img-circle" src="~/user7-128x128.jpg" alt="User Avatar">*@
                     </div>
-                    <!-- /.widget-user-image -->
+                    
                     <h4 class="widget-user-username" id="title"></h4>
                     <h6 class="widget-user-desc">&ensp;</h6>
                 </div>
                 <div class="box-footer no-padding">
                 </div>
             </div>
-            <!-- /.widget-user -->
-
             <form asp-controller="Administrativa" asp-action="#">
                 <div class="modal-body">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -109,15 +122,106 @@
                     </div>
                 </div>
             </form>
-
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
-<!-- /.modal EDIT-->
+-->
 
 
+    <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-warning">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    
+                    <form class="form-group">
+                        <label class="custom-file-upload widget-user-image">
+                            <h1  id="foto"> </h1>
+                        </label>
+                           <!-- <div id="profile-container">
+                            <image id="foto" src="" />
+                            </div>
+                            <input id="imageUpload" type="file" 
+                                name="profile_photo" placeholder="Photo" required="" capture> -->
+
+                        <h1 id="title">TITULO</h1>
+                    </form>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group row">
+                        <div id="valor"></div>
+                        <div id="categoriaP"></div>
+                        <div id="medida"></div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <div id="insumos"></div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                        <button class="btn btn-primary" name="EditId" id="EditId">Salvar</button>
+
+                    </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->  
+   
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<style>
+    #imageUpload
+{
+    display: none;
+}
+
+#foto
+{
+    cursor: pointer;
+}
+
+#profile-container {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+#profile-container img {
+    width: 50px;
+    height: 50px;
+}
+}
+</style>
+
+<script>
+    $("#foto").click(function(e) {
+    $("#imageUpload").click();
+});
+
+function fasterPreview( uploader ) {
+    if ( uploader.files && uploader.files[0] ){
+          $('#foto').attr('src', 
+             window.URL.createObjectURL(uploader.files[0]) );
+    }
+}
+
+$("#imageUpload").change(function(){
+    fasterPreview( this );
+});
+</script>
+   
+     
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
