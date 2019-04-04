@@ -5,4 +5,7 @@
 	-> Add-Migration InitialCreate
 	-> Update-Database
 	
-	Remover [Authorize] do controller para criar primeiro acesso.
+	-Remover [Authorize] do controller (Administrativa) para criar primeiro acesso.
+	-Ao rodar o sistema, ir até usuários e criar um novo.
+	
+	-Senha do usuário por padrão é o próprio CPF
